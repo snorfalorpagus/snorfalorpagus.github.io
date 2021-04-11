@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  
+  <title>Symbology of vector layers in QGIS Python Plugins</title>
+  <meta property="og:title" content="Symbology of vector layers in QGIS Python Plugins" />
+  <meta name="twitter:title" content="Symbology of vector layers in QGIS Python Plugins" />
+  
+
+  
+
+  <meta name="author" content=""/>
+  <meta property="og:site_name" content="snorfalorpagus dot net" />
+  <meta property="og:url" content="https://snorfalorpagus.net/blog/2014/03/04/symbology-of-vector-layers-in-qgis-python-plugins/" />
+
+  
+  <meta name="twitter:card" content="summary" />
+
+  
+
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <meta name="generator" content="Hugo 0.82.0" />
+  
+  
+
+  <link rel="stylesheet" href="https://snorfalorpagus.net/css/style.css" />
+  
+  
+  
+  <script type="text/javascript" src="https://snorfalorpagus.net/js/bundle.js"></script>
+  
+
+</head>
+
+<body>
+  <a href="#main" class="skip-link p-screen-reader-text">Skip to content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;" aria-hidden="true"> <symbol id="icon-500px" viewBox="0 0 16 16"><g> <path d="M3.953 10.512a5.24 5.24 0 0 0 6.996 3.141c.625-.262 1.184-.641 1.666-1.122s.859-1.041 1.122-1.666c.272-.647.412-1.331.412-2.037s-.137-1.394-.412-2.037c-.262-.625-.641-1.184-1.122-1.666s-1.041-.859-1.666-1.122a5.226 5.226 0 0 0-2.037-.413c-.716 0-1.431.144-2.066.413-.509.216-1.372.769-1.875 1.291l-.003.003V.984h7.241c.262-.003.262-.372.262-.491 0-.122 0-.487-.266-.491H4.377a.343.343 0 0 0-.344.341v6.066c0 .197.244.338.472.384.444.094.544-.047.653-.197l.016-.019c.166-.247.681-.766.688-.772a4.262 4.262 0 0 1 3.037-1.25c1.147 0 2.222.444 3.028 1.25a4.245 4.245 0 0 1 1.256 3.019 4.236 4.236 0 0 1-1.25 3.019 4.336 4.336 0 0 1-3.047 1.25 4.136 4.136 0 0 1-2.159-.597l.003-3.688c0-.491.213-1.028.572-1.431a2.09 2.09 0 0 1 1.588-.716c.594 0 1.15.225 1.566.634.409.406.637.95.637 1.528a2.179 2.179 0 0 1-2.206 2.197c-.238 0-.672-.106-.691-.109-.25-.075-.356.272-.391.387-.134.441.069.528.109.541.397.125.659.147 1.003.147a3.173 3.173 0 0 0 3.169-3.169c0-1.734-1.422-3.144-3.166-3.144-.856 0-1.659.328-2.263.919-.575.566-.903 1.319-.903 2.069v.019c-.003.094-.003 2.306-.006 3.031l-.003-.003c-.328-.363-.653-.919-.869-1.488-.084-.222-.275-.184-.534-.103-.125.034-.469.141-.391.394zm3.722-.865c0 .106.097.2.156.253l.019.019c.1.097.194.147.281.147a.181.181 0 0 0 .131-.05c.044-.041.537-.544.588-.591l.553.55c.05.056.106.088.172.088.088 0 .184-.053.284-.156.238-.244.119-.375.063-.438l-.559-.559.584-.588c.128-.137.016-.284-.097-.397-.162-.162-.322-.206-.422-.112l-.581.581-.588-.588a.16.16 0 0 0-.113-.047c-.078 0-.172.053-.275.156-.181.181-.219.306-.125.406l.588.584-.584.584c-.053.05-.078.103-.075.156zm1.278-7.931c-.938 0-1.938.191-2.669.506a.207.207 0 0 0-.134.181.753.753 0 0 0 .069.337c.047.116.166.425.4.334a6.689 6.689 0 0 1 2.334-.444 6.35 6.35 0 0 1 2.469.497c.622.263 1.206.644 1.844 1.194a.22.22 0 0 0 .147.059c.125 0 .244-.122.347-.237.169-.191.287-.35.119-.509a6.858 6.858 0 0 0-2.1-1.356 7.326 7.326 0 0 0-2.825-.563zM14.006 13.3c-.113-.113-.209-.178-.294-.203s-.162-.006-.222.053l-.056.056a6.32 6.32 0 0 1-6.938 1.356 6.336 6.336 0 0 1-2.013-1.356 6.046 6.046 0 0 1-1.356-2.012c-.288-.713-.381-1.247-.413-1.422-.003-.016-.006-.028-.006-.037-.041-.206-.231-.222-.503-.178-.112.019-.459.072-.428.319v.006a7.261 7.261 0 0 0 2.04 3.994 7.266 7.266 0 0 0 10.288 0l.059-.059c.069-.084.134-.225-.159-.516z"/> </g></symbol> <symbol id="icon-codepen" viewBox="0 0 16 16"><g> <path d="M14.777 5.751l-7-4.667a.5.5 0 0 0-.555 0l-7 4.667a.501.501 0 0 0-.223.416v4.667c0 .167.084.323.223.416l7 4.667a.5.5 0 0 0 .554 0l7-4.667a.501.501 0 0 0 .223-.416V6.167a.501.501 0 0 0-.223-.416zM7.5 10.232L4.901 8.5 7.5 6.768 10.099 8.5 7.5 10.232zM8 5.899V2.434l5.599 3.732L11 7.898l-3-2zm-1 0l-3 2-2.599-1.732L7 2.435V5.9zM3.099 8.5L1 9.899V7.101L3.099 8.5zM4 9.101l3 2v3.465l-5.599-3.732L4 9.102zm4 2l3-2 2.599 1.732L8 14.565V11.1zM11.901 8.5L14 7.101v2.798L11.901 8.5z"/> </g></symbol> <symbol id="icon-dribbble" viewBox="0 0 16 16"><g> <path d="M8 16c-4.412 0-8-3.588-8-8s3.587-8 8-8c4.412 0 8 3.587 8 8s-3.588 8-8 8zm6.747-6.906c-.234-.075-2.116-.634-4.256-.291a29.7 29.7 0 0 1 1.328 4.872 6.845 6.845 0 0 0 2.928-4.581zM10.669 14.3c-.103-.6-.497-2.688-1.456-5.181-.016.006-.031.009-.044.016-3.856 1.344-5.241 4.016-5.362 4.266a6.807 6.807 0 0 0 6.863.9zm-7.747-1.722c.156-.266 2.031-3.369 5.553-4.509a7.04 7.04 0 0 1 .269-.081 24.04 24.04 0 0 0-.553-1.159c-3.409 1.022-6.722.978-7.022.975-.003.069-.003.138-.003.209 0 1.753.666 3.356 1.756 4.566zM1.313 6.609c.306.003 3.122.016 6.319-.831a43.092 43.092 0 0 0-2.534-3.953 6.854 6.854 0 0 0-3.784 4.784zM6.4 1.366a36.612 36.612 0 0 1 2.55 4c2.431-.909 3.459-2.294 3.581-2.469A6.799 6.799 0 0 0 6.4 1.366zm6.891 2.325c-.144.194-1.291 1.663-3.816 2.694.159.325.313.656.453.991.05.119.1.234.147.353 2.275-.284 4.534.172 4.759.219a6.816 6.816 0 0 0-1.544-4.256z"/> </g></symbol> <symbol id="icon-facebook" viewBox="0 0 16 16"><g> <path d="M9.5 3H12V0H9.5C7.57 0 6 1.57 6 3.5V5H4v3h2v8h3V8h2.5l.5-3H9V3.5c0-.271.229-.5.5-.5z"/> </g></symbol> <symbol id="icon-feed" viewBox="0 0 16 16"><g> <path d="M2.13 11.733c-1.175 0-2.13.958-2.13 2.126 0 1.174.955 2.122 2.13 2.122a2.126 2.126 0 0 0 2.133-2.122 2.133 2.133 0 0 0-2.133-2.126zM.002 5.436v3.067c1.997 0 3.874.781 5.288 2.196a7.45 7.45 0 0 1 2.192 5.302h3.08c0-5.825-4.739-10.564-10.56-10.564zM.006 0v3.068C7.128 3.068 12.924 8.87 12.924 16H16C16 7.18 8.824 0 .006 0z"/> </g></symbol> <symbol id="icon-flickr" viewBox="0 0 16 16"><g> <path d="M0 8.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0zm9 0a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/> </g></symbol> <symbol id="icon-github" viewBox="0 0 16 16"><g> <path d="M8 .198a8 8 0 0 0-2.529 15.591c.4.074.547-.174.547-.385 0-.191-.008-.821-.011-1.489-2.226.484-2.695-.944-2.695-.944-.364-.925-.888-1.171-.888-1.171-.726-.497.055-.486.055-.486.803.056 1.226.824 1.226.824.714 1.223 1.872.869 2.328.665.072-.517.279-.87.508-1.07-1.777-.202-3.645-.888-3.645-3.954 0-.873.313-1.587.824-2.147-.083-.202-.357-1.015.077-2.117 0 0 .672-.215 2.201.82A7.672 7.672 0 0 1 8 4.066c.68.003 1.365.092 2.004.269 1.527-1.035 2.198-.82 2.198-.82.435 1.102.162 1.916.079 2.117.513.56.823 1.274.823 2.147 0 3.073-1.872 3.749-3.653 3.947.287.248.543.735.543 1.481 0 1.07-.009 1.932-.009 2.195 0 .213.144.462.55.384A8 8 0 0 0 8.001.196z"/> </g></symbol> <symbol id="icon-gitlab" viewBox="0 0 28 28"><g> <path d="M1.625 11.031L14 26.89.437 17.046a1.092 1.092 0 0 1-.391-1.203l1.578-4.813zm7.219 0h10.313L14.001 26.89zM5.75 1.469l3.094 9.562H1.625l3.094-9.562a.548.548 0 0 1 1.031 0zm20.625 9.562l1.578 4.813a1.09 1.09 0 0 1-.391 1.203l-13.563 9.844 12.375-15.859zm0 0h-7.219l3.094-9.562a.548.548 0 0 1 1.031 0z"/> </g></symbol> <symbol id="icon-google-plus" viewBox="0 0 16 16"><g> <path d="M5.091 7.147v1.747h2.888c-.116.75-.872 2.197-2.888 2.197-1.737 0-3.156-1.441-3.156-3.216s1.419-3.216 3.156-3.216c.991 0 1.65.422 2.028.784L8.5 4.112c-.888-.828-2.037-1.331-3.409-1.331C2.275 2.784 0 5.059 0 7.875s2.275 5.091 5.091 5.091c2.937 0 4.888-2.066 4.888-4.975 0-.334-.037-.591-.081-.844H5.092zM16 7h-1.5V5.5H13V7h-1.5v1.5H13V10h1.5V8.5H16z"/> </g></symbol> <symbol id="icon-instagram" viewBox="0 0 22 22"><g> <path d="M15.445 0H6.554A6.559 6.559 0 0 0 0 6.554v8.891A6.559 6.559 0 0 0 6.554 22h8.891a6.56 6.56 0 0 0 6.554-6.555V6.554A6.557 6.557 0 0 0 15.445 0zm4.342 15.445a4.343 4.343 0 0 1-4.342 4.342H6.554a4.341 4.341 0 0 1-4.341-4.342V6.554a4.34 4.34 0 0 1 4.341-4.341h8.891a4.342 4.342 0 0 1 4.341 4.341l.001 8.891z"/> <path d="M11 5.312A5.693 5.693 0 0 0 5.312 11 5.694 5.694 0 0 0 11 16.688 5.694 5.694 0 0 0 16.688 11 5.693 5.693 0 0 0 11 5.312zm0 9.163a3.475 3.475 0 1 1-.001-6.95 3.475 3.475 0 0 1 .001 6.95zm5.7-10.484a1.363 1.363 0 1 1-1.364 1.364c0-.752.51-1.364 1.364-1.364z"/> </g></symbol> <symbol id="icon-linkedin" viewBox="0 0 16 16"><g> <path d="M6 6h2.767v1.418h.04C9.192 6.727 10.134 6 11.539 6 14.46 6 15 7.818 15 10.183V15h-2.885v-4.27c0-1.018-.021-2.329-1.5-2.329-1.502 0-1.732 1.109-1.732 2.255V15H6V6zM1 6h3v9H1V6zM4 3.5a1.5 1.5 0 1 1-3.001-.001A1.5 1.5 0 0 1 4 3.5z"/> </g></symbol> <symbol id="icon-mail" viewBox="0 0 22 18"><g> <path fill="#000" d="M0 17.225V.776h22v16.447H0v.002zm3.011-1.815h15.978l-5.111-5.115L11 13.179l-2.877-2.883-5.112 5.114zm-1.216-1.275l5.077-5.09L1.795 3.98v10.155zm13.332-5.09l5.079 5.09V3.979l-5.079 5.066zm-4.126 1.588l8.022-8.027-16.045-.001 8.023 8.028z"/> </g></symbol> <symbol id="icon-medium" viewBox="0 0 24 24"><g> <path d="M22.085 4.733L24 2.901V2.5h-6.634l-4.728 11.768L7.259 2.5H.303v.401L2.54 5.594c.218.199.332.49.303.783V16.96c.069.381-.055.773-.323 1.05L0 21.064v.396h7.145v-.401l-2.52-3.049a1.244 1.244 0 0 1-.347-1.05V7.806l6.272 13.659h.729l5.393-13.659v10.881c0 .287 0 .346-.188.534l-1.94 1.877v.402h9.412v-.401l-1.87-1.831a.556.556 0 0 1-.214-.534V5.267a.554.554 0 0 1 .213-.534z"/> </g></symbol> <symbol id="icon-npm" viewBox="0 0 16 16"><g> <path d="M0 0v16h16V0H0zm13 13h-2V5H8v8H3V3h10v10z"/> </g></symbol> <symbol id="icon-pinterest" viewBox="0 0 16 16"><g> <path d="M8 1.069a6.93 6.93 0 0 0-2.525 13.384c-.059-.547-.116-1.391.025-1.988.125-.541.813-3.444.813-3.444s-.206-.416-.206-1.028c0-.963.559-1.684 1.253-1.684.591 0 .878.444.878.975 0 .594-.378 1.484-.575 2.306-.166.691.344 1.253 1.025 1.253 1.231 0 2.178-1.3 2.178-3.175 0-1.659-1.194-2.819-2.894-2.819-1.972 0-3.128 1.478-3.128 3.009 0 .597.228 1.234.516 1.581.056.069.066.128.047.2a95.89 95.89 0 0 1-.194.787c-.031.128-.1.153-.231.094-.866-.403-1.406-1.669-1.406-2.684 0-2.188 1.587-4.194 4.578-4.194 2.403 0 4.272 1.712 4.272 4.003 0 2.388-1.506 4.313-3.597 4.313-.703 0-1.362-.366-1.588-.797 0 0-.347 1.322-.431 1.647-.156.603-.578 1.356-.862 1.816a6.93 6.93 0 0 0 8.984-6.622 6.931 6.931 0 0 0-6.931-6.934z"/> </g></symbol> <symbol id="icon-search" viewBox="0 0 16 16"><g> <path d="M15.504 13.616l-3.79-3.223c-.392-.353-.811-.514-1.149-.499a6 6 0 1 0-.672.672c-.016.338.146.757.499 1.149l3.223 3.79c.552.613 1.453.665 2.003.115s.498-1.452-.115-2.003zM6 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/> </g></symbol> <symbol id="icon-strava" viewBox="0 0 24 24"><g> <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/> </g></symbol> <symbol id="icon-tumblr" viewBox="0 0 16 16"><g> <path d="M9.001 7v3.659c0 .928-.012 1.463.086 1.727.098.262.342.534.609.691.354.212.758.318 1.214.318.81 0 1.289-.107 2.09-.633v2.405a9.089 9.089 0 0 1-1.833.639A7.93 7.93 0 0 1 9.369 16a4.9 4.9 0 0 1-1.725-.276 4.195 4.195 0 0 1-1.438-.79c-.398-.343-.672-.706-.826-1.091s-.23-.944-.23-1.676V6.556H3.003V4.29c.628-.204 1.331-.497 1.778-.877a4.386 4.386 0 0 0 1.08-1.374C6.133 1.505 6.32.825 6.422 0h2.579v4H13v3H9.001z"/> </g></symbol> <symbol id="icon-twitter" viewBox="0 0 16 16"><g> <path d="M16 3.538a6.461 6.461 0 0 1-1.884.516 3.301 3.301 0 0 0 1.444-1.816 6.607 6.607 0 0 1-2.084.797 3.28 3.28 0 0 0-2.397-1.034 3.28 3.28 0 0 0-3.197 4.028 9.321 9.321 0 0 1-6.766-3.431 3.284 3.284 0 0 0 1.015 4.381A3.301 3.301 0 0 1 .643 6.57v.041A3.283 3.283 0 0 0 3.277 9.83a3.291 3.291 0 0 1-1.485.057 3.293 3.293 0 0 0 3.066 2.281 6.586 6.586 0 0 1-4.862 1.359 9.286 9.286 0 0 0 5.034 1.475c6.037 0 9.341-5.003 9.341-9.341 0-.144-.003-.284-.009-.425a6.59 6.59 0 0 0 1.637-1.697z"/> </g></symbol> <symbol id="icon-vimeo" viewBox="0 0 16 16"><g> <path d="M15.994 4.281c-.072 1.556-1.159 3.691-3.263 6.397-2.175 2.825-4.016 4.241-5.522 4.241-.931 0-1.722-.859-2.366-2.581-.431-1.578-.859-3.156-1.291-4.734-.478-1.722-.991-2.581-1.541-2.581-.119 0-.538.253-1.256.753l-.753-.969c.791-.694 1.569-1.388 2.334-2.081 1.053-.909 1.844-1.387 2.372-1.438 1.244-.119 2.013.731 2.3 2.553.309 1.966.525 3.188.647 3.666.359 1.631.753 2.447 1.184 2.447.334 0 .838-.528 1.509-1.588.669-1.056 1.028-1.862 1.078-2.416.097-.912-.262-1.372-1.078-1.372a2.98 2.98 0 0 0-1.184.263c.787-2.575 2.287-3.825 4.506-3.753 1.641.044 2.416 1.109 2.322 3.194z"/> </g></symbol> <symbol id="icon-wordpress" viewBox="0 0 16 16"><g> <path d="M2 8c0 2.313 1.38 4.312 3.382 5.259L2.52 5.622A5.693 5.693 0 0 0 2 8zm10.05-.295c0-.722-.266-1.222-.495-1.612-.304-.482-.589-.889-.589-1.371 0-.537.418-1.037 1.008-1.037.027 0 .052.003.078.005A6.064 6.064 0 0 0 8 2.156 6.036 6.036 0 0 0 2.987 4.79c.141.004.274.007.386.007.627 0 1.599-.074 1.599-.074.323-.018.361.444.038.482 0 0-.325.037-.687.055l2.185 6.33 1.313-3.835-.935-2.495a12.304 12.304 0 0 1-.629-.055c-.323-.019-.285-.5.038-.482 0 0 .991.074 1.58.074.627 0 1.599-.074 1.599-.074.323-.018.362.444.038.482 0 0-.326.037-.687.055l2.168 6.282.599-1.947c.259-.809.457-1.389.457-1.889zm-3.945.806l-1.8 5.095a6.148 6.148 0 0 0 3.687-.093.52.52 0 0 1-.043-.081L8.105 8.511zm5.16-3.315c.026.186.04.386.04.601 0 .593-.114 1.259-.456 2.093l-1.833 5.16c1.784-1.013 2.983-2.895 2.983-5.051a5.697 5.697 0 0 0-.735-2.803zM8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14z"/> </g></symbol> <symbol id="icon-youtube" viewBox="0 0 16 16"><g> <path d="M15.841 4.8s-.156-1.103-.637-1.587c-.609-.637-1.291-.641-1.603-.678-2.237-.163-5.597-.163-5.597-.163h-.006s-3.359 0-5.597.163c-.313.038-.994.041-1.603.678C.317 3.697.164 4.8.164 4.8S.005 6.094.005 7.391v1.213c0 1.294.159 2.591.159 2.591s.156 1.103.634 1.588c.609.637 1.409.616 1.766.684 1.281.122 5.441.159 5.441.159s3.363-.006 5.6-.166c.313-.037.994-.041 1.603-.678.481-.484.637-1.588.637-1.588s.159-1.294.159-2.591V7.39c-.003-1.294-.162-2.591-.162-2.591zm-9.494 5.275V5.578l4.322 2.256-4.322 2.241z"/> </g></symbol></svg>
+  <header class="l-header">
+    
+    <p class="c-title p-title"><a href="https://snorfalorpagus.net/" class="p-title__link">snorfalorpagus dot net</a></p>
+    
+    
+  </header>
+
+  <main id="main" class="l-main">
+
+
+<article class="p-article">
+  <header>
+    <h1>Symbology of vector layers in QGIS Python Plugins</h1>
+    <div>
+      
+        <div class="c-time">
+          Posted on
+<time datetime="2014-03-04T00:00:00Z">
+  Mar 4, 2014
+</time>
+
+        </div>
+      
+      
+    </div>
+  </header>
+  
+  <section id="js-article" class="p-article__body">
+    <p>The symbology of a layer describes how the layer&rsquo;s data should be displayed on the map canvas. A layers symbology, or style, is composed of two things: a symbol (or multiple symbols) and a renderer.</p>
+<p>The layer&rsquo;s renderer decides which features should be drawn using which symbols. The renderer can be a simple thing, giving all features the same symbol, or something more complex, giving each feature a different symbol depending on its attributes. The renderer also assigns labels to symbols for use in the legend.</p>
+<p>A symbol describes how an individual feature is drawn. In QGIS, a symbol is a container for symbol layers. Each symbol layer contributes to the overall appearance of a symbol. For example, a polygon with a grey fill and red hatched lines is created using two layers: a grey fill layer and a red line pattern layer.</p>
+<p>This post describes how to work with layer symbologies in QGIS using Python.</p>
+<!-- more -->
+<p>The hierarchy of objects describing vector layer symbology is as follows:</p>
+<ul>
+<li>Layer, <code>QgsVectorLayer</code>
+<ul>
+<li><a href="#renderers">Renderer</a>, e.g. <code>QgsSingleSymbolRendererV2</code>
+<ul>
+<li><a href="#symbols">Symbols</a>, e.g. <code>QgsMarkerSymbolV2</code>
+<ul>
+<li>Symbol layers, e.g. <code>QgsSimpleMarkerSymbolLayerV2</code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>The <a href="http://www.qgis.org/en/docs/pyqgis_developer_cookbook/vector.html#appearance-symbology-of-vector-layers">QGIS cookbook</a> has a section of vector layer symbology, which this post is partly based on.</p>
+<p>The <a href="http://www.qgis.org/api/">QGIS API reference</a> is also useful when working with symbology.</p>
+<p><a name="colors"></a></p>
+<h2 id="colors">Colors</h2>
+<p>QGIS uses the standard <code>QtGui.QColor</code> object for representing colors. See the <a href="http://qt-project.org/doc/qt-4.8/qcolor.html">QColor class reference</a> for more information.</p>
+<p>A new <code>QColor</code> object can be created using a color name (e.g. <code>magenta</code>), a color hex value (e.g. <code>#ff00ff</code>) or RGB values (e.g. <code>255, 0, 255</code>):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># initalise an empty color object</span>
+color <span style="color:#f92672">=</span> QtGui<span style="color:#f92672">.</span>QColor()
+
+<span style="color:#75715e"># initalise a color object by color name</span>
+color <span style="color:#f92672">=</span> QtGui<span style="color:#f92672">.</span>QColor(<span style="color:#e6db74">&#39;red&#39;</span>)
+
+<span style="color:#75715e"># initalise a color object by RGB values</span>
+color <span style="color:#f92672">=</span> QtGui<span style="color:#f92672">.</span>QColor(<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">0</span>)
+
+<span style="color:#75715e"># initalise a color object by hex value</span>
+color <span style="color:#f92672">=</span> QtGui<span style="color:#f92672">.</span>QColor(<span style="color:#e6db74">&#39;#ff0000&#39;</span>)</code></pre></div>
+<p>The value of an existing <code>QColor</code> object can be retrieved as RGB values or as a hex value.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># get individual RGB values</span>
+red, green, blue <span style="color:#f92672">=</span> color<span style="color:#f92672">.</span>red(), color<span style="color:#f92672">.</span>green(), color<span style="color:#f92672">.</span>blue()
+
+<span style="color:#75715e"># get color name (e.g. &#39;#ff00ff&#39;)</span>
+name <span style="color:#f92672">=</span> color<span style="color:#f92672">.</span>name()</code></pre></div>
+<p>Similarily the value of an existing <code>QColor</code> obejct can be modified using a color name, a color hex value , or RGB values:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># set color value by name</span>
+color<span style="color:#f92672">.</span>setNamedColor(<span style="color:#e6db74">&#39;magenta&#39;</span>)
+
+<span style="color:#75715e"># set color value by rgb hex</span>
+color<span style="color:#f92672">.</span>setNamedColor(<span style="color:#e6db74">&#39;#ff00ff&#39;</span>)
+
+<span style="color:#75715e"># set color value by rgb values</span>
+color<span style="color:#f92672">.</span>setRgb(<span style="color:#ae81ff">255</span>, <span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">255</span>)
+
+<span style="color:#75715e"># set color value by individual rgb values</span>
+color<span style="color:#f92672">.</span>setRed(<span style="color:#ae81ff">255</span>)
+color<span style="color:#f92672">.</span>setGreen(<span style="color:#ae81ff">0</span>)
+color<span style="color:#f92672">.</span>setBlue(<span style="color:#ae81ff">0</span>)</code></pre></div>
+<p><a name="symbols"></a></p>
+<h2 id="symbols-and-symbol-layers">Symbols and symbol layers</h2>
+<p>There are two ways to create a symbol layer: initalise it with a dictionary of properties, or create a default symbol layer and modify it using methods. Both approaches have their own benefits and drawbacks, but you can mix and match them to work around this, i.e. initalise a symbol layer using properties, then modify it later using methods.</p>
+<p>At the time of writing not all of the C++ object methods have been made accessible via Python. This means that some features of a symbol layer are only accessible via the properties dict approach.</p>
+<p>The best way to find the properties you need for a particular symbol is to explore! Create the symbol in the QGIS GUI, then investigate the different properties it sets via the Python console.</p>
+<h3 id="creating-symbol-layers-using-a-properties-dictionary">Creating symbol layers using a properties dictionary</h3>
+<p>To initalise a new symbol layer with a dict of properties call the <code>create</code> method with a dictionary as the only argument (see below). All of the elements in the dictionary (both keys and values) should be strings.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># define the layer properties as a dict</span>
+properties <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;size&#39;</span>: <span style="color:#e6db74">&#39;5.0&#39;</span>, <span style="color:#e6db74">&#39;color&#39;</span>: <span style="color:#e6db74">&#39;255,0,0,255&#39;</span>}
+
+<span style="color:#75715e"># initalise a new symbol layer with those properties</span>
+symbol_layer <span style="color:#f92672">=</span> QgsSimpleMarkerSymbolLayerV2<span style="color:#f92672">.</span>create(properties)
+
+<span style="color:#75715e"># replace the default symbol layer with the new symbol layer</span>
+layer<span style="color:#f92672">.</span>rendererV2()<span style="color:#f92672">.</span>symbols()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>changeSymbolLayer(<span style="color:#ae81ff">0</span>, symbol_layer)</code></pre></div>
+<p>The properties can be accessed later using the properties dict:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># get the symbol layer</span>
+symbol_layer <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>rendererV2()<span style="color:#f92672">.</span>symbols()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>symbolLayer(<span style="color:#ae81ff">0</span>)
+
+<span style="color:#75715e"># get the properties of the symbol layer</span>
+properties <span style="color:#f92672">=</span> symbol_layer<span style="color:#f92672">.</span>properties()
+
+<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Size:&#39;</span>, properties[<span style="color:#e6db74">&#39;size&#39;</span>]
+<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Color:&#39;</span>, properties[<span style="color:#e6db74">&#39;color&#39;</span>]</code></pre></div>
+<h3 id="creating-a-default-symbol-layer-then-modifying-it">Creating a default symbol layer then modifying it</h3>
+<p>To create a new symbol layer initalise it as you would any other class:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># create a new symbol layer with default properties</span>
+symbol_layer <span style="color:#f92672">=</span> QgsSimpleMarkerSymbolLayerV2()
+
+<span style="color:#75715e"># set the size and color using methods</span>
+symbol_layer<span style="color:#f92672">.</span>setSize(<span style="color:#ae81ff">5.0</span>)
+symbol_layer<span style="color:#f92672">.</span>setColor(QColor(<span style="color:#ae81ff">255</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">255</span>))
+
+<span style="color:#75715e"># replace the default symbol layer with the new symbol layer</span>
+layer<span style="color:#f92672">.</span>rendererV2()<span style="color:#f92672">.</span>symbols()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>changeSymbolLayer(<span style="color:#ae81ff">0</span>, symbol_layer)</code></pre></div>
+<p>The properties can be accessed later using methods:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># get the symbol layer</span>
+symbol_layer <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>rendererV2()<span style="color:#f92672">.</span>symbols()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>symbolLayer(<span style="color:#ae81ff">0</span>)
+
+<span style="color:#75715e"># get the properties of the symbol layer</span>
+<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Size:&#39;</span>, symbol_layer<span style="color:#f92672">.</span>size()
+<span style="color:#66d9ef">print</span> <span style="color:#e6db74">&#39;Color:&#39;</span>, symbol_layer<span style="color:#f92672">.</span>color()<span style="color:#f92672">.</span>name()</code></pre></div>
+<h3 id="point-symbols">Point symbols</h3>
+<ul>
+<li>Simple marker symbol, <code>QgsSimpleMarkerSymbolLayerV2</code></li>
+<li>Ellipse symbol, <code>QgsEllipseSymbolLayerV2</code></li>
+<li>Font symbol, <code>QgsFontMarkerSymbolLayerV2</code></li>
+<li>SVG marker, <code>QgsSvgMarkerSymbolLayerV2</code></li>
+<li>Vector field marker, <code>QgsVectorFieldSymbolLayer</code></li>
+</ul>
+<h3 id="line-symbols">Line symbols</h3>
+<ul>
+<li>Simple line, <code>QgsSimpleLineSymbolLayerV2</code></li>
+<li>Marker line, <code>QgsMarkerLineSymbolLayerV2</code></li>
+</ul>
+<h3 id="polygon-symbols">Polygon symbols</h3>
+<ul>
+<li>Simple fill, <code>QgsSimpleFillSymbolLayerV2</code></li>
+<li>Gradient fill, <code>QgsFillSymbolLayerV2</code></li>
+<li>Centroid fill, <code>QgsCentroidFillSymbolLayerV2</code></li>
+<li>Line pattern fill, <code>QgsLinePatternFillSymbolLayer</code></li>
+<li>Point pattern fill, <code>QgsPointPatternFillSymbolLayer</code></li>
+<li>SVG fill, <code>QgsSVGFillSymbolLayer</code></li>
+<li>Outline: marker line, <code>QgsMarkerLineSymbolLayerV2</code></li>
+<li>Outline: simple line, <code>QgsSimpleLineSymbolLayerV2</code></li>
+</ul>
+<h3 id="multi-layered-symbols">Multi layered symbols</h3>
+<p>Symbols can be composed of multiple symbol layers to create complex effects. The example below shows a gradient fill layer (blue to green) with two line fill layers (grey and black).</p>
+<p><img src="/blog/images/qgis/symbol_types/multi_layered_fill.png" /></p>
+<p>The number of symbol layers in a symbol can be accessed using:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">layer_count <span style="color:#f92672">=</span> symbol<span style="color:#f92672">.</span>symbolLayerCount()</code></pre></div>
+<p>Symbol layers are indexed in the order they are drawn. For example, if a symbol has two layers the 0th layer will be drawn first, then the 1st layer will be drawn on top.</p>
+<p>A symbol layer can be appended to the top of the stack using <code>appendSymbolLayer</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol<span style="color:#f92672">.</span>appendSymbolLayer(symbol_layer)</code></pre></div>
+<p>To insert a symbol layer at any other level in the stack use <code>insertSymbolLayer</code>. The first argument is the index the new layer will be inserted before. For example, the code below will insert the new symbol layer at the bottom of the stack.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol<span style="color:#f92672">.</span>insertSymbolLayer(<span style="color:#ae81ff">0</span>, symbol_layer)</code></pre></div>
+<p>To remove a symbol layer from the stack use <code>deleteSymbolLayer</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol<span style="color:#f92672">.</span>deleteSymbolLayer(<span style="color:#ae81ff">0</span>)</code></pre></div>
+<p>Note than a symbol must always contain at least one symbol layer.</p>
+<h3 id="custom-symbols">Custom symbols</h3>
+<p>See the section in the <a href="http://www.qgis.org/en/docs/pyqgis_developer_cookbook/vector.html#appearance-symbology-of-vector-layers">QGIS cookbook</a>.</p>
+<h3 id="transparency-alpha">Transparency (alpha)</h3>
+<p>Transparency can be set for an entire layer:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># get the transparency of a layer (0 = completely opaque, 100 = completely transparent)</span>
+transparency <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>layerTransparency()
+
+<span style="color:#75715e"># set the transparency of a layer</span>
+layer<span style="color:#f92672">.</span>setLayerTransparency(<span style="color:#ae81ff">42</span>)</code></pre></div>
+<p>Alternatively, transparency can be set on a per-symbol basis:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># get the transparency of a symbol (1 = completely opaque, 0 = completely transparent)</span>
+transparency <span style="color:#f92672">=</span> symbol<span style="color:#f92672">.</span>alpha()
+
+<span style="color:#75715e"># set the transparency of a symbol</span>
+symbol<span style="color:#f92672">.</span>setAlpha(<span style="color:#ae81ff">0.56</span>)</code></pre></div>
+<h3 id="layer-blending">Layer blending</h3>
+<p>Layer blending modes can be accessed via the <code>blendMode</code> and <code>setBlendMode</code> methods. The functions requires that you use the composition mode constants from the <code>QPainter</code> object which are explained in the <a href="http://qt-project.org/doc/qt-4.8/qpainter.html#CompositionMode-enum">Qt documentation</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> PyQt4.QtGui <span style="color:#f92672">import</span> QPainter
+
+<span style="color:#75715e"># get the current blend mode</span>
+blend_mode <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>blendMode()
+
+<span style="color:#75715e"># set the blend mode to multiply</span>
+layer<span style="color:#f92672">.</span>setBlendMode(QPainter<span style="color:#f92672">.</span>CompositionMode_Multiply)</code></pre></div>
+<p><a name="renderers"></a></p>
+<h2 id="renderers">Renderers</h2>
+<p>To access the existing renderer of a layer:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">renderer <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>rendererV2()</code></pre></div>
+<p>The type of the renderer can be accessed via the <code>type</code> method:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">renderer_type <span style="color:#f92672">=</span> renderer<span style="color:#f92672">.</span>type()</code></pre></div>
+<p>To get a list of the available renderer types use the <code>QgsRendererV2Registry</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">renderer_types <span style="color:#f92672">=</span> QgsRendererV2Registry()<span style="color:#f92672">.</span>renderersList()</code></pre></div>
+<p>The table below shows the renderer types available by default.</p>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th><th>Type</th><th>Class</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>Single symbol renderer</td><td>singleSymbol</td><td><span class="td-code">QgsSingleSymbolRendererV2</span></td>
+        </tr>
+        <tr>
+            <td>Categorized symbol renderer</td><td>categorizedSymbol</td><td><span class="td-code">QgsCategorizedSymbolRendererV2</span></td>
+        </tr>
+        <tr>
+            <td>Graduated symbol renderer</td><td>graduatedSymbol</td><td><span class="td-code">QgsGraduatedSymbolRendererV2</span></td>
+        </tr>
+        <tr>
+            <td>Rule based renderer</td><td>RuleRenderer</td><td><span class="td-code">QgsRuleBasedRendererV2</span></td>
+        </tr>
+        <tr>
+            <td>Point displacement renderer</td><td>pointDisplacement</td><td><span class="td-code">QgsFeatureRendererV2</span></td>
+        </tr>
+    </tbody>
+</table>
+<p>In addition to these defaults there may be other custom renderers registered by plugins.</p>
+<p>To create a new renderer and assign it to a layer use the <code>setRendererV2</code> method. New renderers must be initalised with a symbol, e.g. <code>QgsMarkerSymbolV2</code>. The following sections describe how to use each of the renderer types.</p>
+<h3 id="single-symbol-renderer">Single symbol renderer</h3>
+<p>The single symbol renderer is the simplest renderer. It assigns the same symbol to all of the features in a layer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># create a new single symbol renderer</span>
+symbol <span style="color:#f92672">=</span> QgsSymbolV2<span style="color:#f92672">.</span>defaultSymbol(layer<span style="color:#f92672">.</span>geometryType())
+renderer <span style="color:#f92672">=</span> QgsSingleSymbolRendererV2(symbol)
+
+<span style="color:#75715e"># create a new simple marker symbol layer, a green circle with a black border</span>
+properties <span style="color:#f92672">=</span> {<span style="color:#e6db74">&#39;color&#39;</span>: <span style="color:#e6db74">&#39;green&#39;</span>, <span style="color:#e6db74">&#39;color_border&#39;</span>: <span style="color:#e6db74">&#39;black&#39;</span>}
+symbol_layer <span style="color:#f92672">=</span> QgsSimpleMarkerSymbolLayerV2<span style="color:#f92672">.</span>create(properties)
+
+<span style="color:#75715e"># assign the symbol layer to the symbol</span>
+renderer<span style="color:#f92672">.</span>symbols()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>changeSymbolLayer(<span style="color:#ae81ff">0</span>, symbol_layer)
+
+<span style="color:#75715e"># assign the renderer to the layer</span>
+layer<span style="color:#f92672">.</span>setRendererV2(renderer)</code></pre></div>
+<h3 id="categorized-symbol-renderer">Categorized symbol renderer</h3>
+<p>The categorized symbol renderer styles features based on unique values in the layer&rsquo;s attribute table.</p>
+<p>The example below demonstrates how to create a categorized symbol renderer. Each type of animal is given a different color and label. For example, features with &lsquo;cat&rsquo; in the &lsquo;animal&rsquo; field are colored red and labelled &lsquo;Small cat&rsquo; in the legend. To match any features not matched by another category an empty string is used for the value.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># define a lookup: value -&gt; (color, label)</span>
+animals <span style="color:#f92672">=</span> {
+    <span style="color:#e6db74">&#39;cat&#39;</span>: (<span style="color:#e6db74">&#39;#f00&#39;</span>, <span style="color:#e6db74">&#39;Small cat&#39;</span>),
+    <span style="color:#e6db74">&#39;dog&#39;</span>: (<span style="color:#e6db74">&#39;#0f0&#39;</span>, <span style="color:#e6db74">&#39;Big dog&#39;</span>),
+    <span style="color:#e6db74">&#39;sheep&#39;</span>: (<span style="color:#e6db74">&#39;#fff&#39;</span>, <span style="color:#e6db74">&#39;Fluffy sheep&#39;</span>),
+    <span style="color:#e6db74">&#39;&#39;</span>: (<span style="color:#e6db74">&#39;#000&#39;</span>, <span style="color:#e6db74">&#39;Unknown&#39;</span>),
+}
+
+<span style="color:#75715e"># create a category for each item in animals</span>
+categories <span style="color:#f92672">=</span> []
+<span style="color:#66d9ef">for</span> animal_name, (color, label) <span style="color:#f92672">in</span> animals<span style="color:#f92672">.</span>items():
+    symbol <span style="color:#f92672">=</span> QgsSymbolV2<span style="color:#f92672">.</span>defaultSymbol(layer<span style="color:#f92672">.</span>geometryType())
+    symbol<span style="color:#f92672">.</span>setColor(QColor(color))
+    category <span style="color:#f92672">=</span> QgsRendererCategoryV2(animal_name, symbol, label)
+    categories<span style="color:#f92672">.</span>append(category)
+
+<span style="color:#75715e"># create the renderer and assign it to a layer</span>
+expression <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;animal&#39;</span> <span style="color:#75715e"># field name</span>
+renderer <span style="color:#f92672">=</span> QgsCategorizedSymbolRendererV2(expression, categories)
+layer<span style="color:#f92672">.</span>setRendererV2(renderer)</code></pre></div>
+<p>The first argument to the categorized symbol renderer is an expression (in the form a string). The expression can be a single field name (as an the example above), or something more complex as demonstrated below:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># categorize features based on their &#34;animal&#34; and &#34;size&#34; attributes</span>
+expression <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#39;&#39;concat(&#34;animal&#34;, &#39;_&#39;, &#34;size&#34;)&#39;&#39;&#39;</span></code></pre></div>
+<p>To get a list of unique values for a given field for use in a categorized symbol renderer use the <code>uniqueValues</code> method. The example below searches the &lsquo;animal&rsquo; field the first 1000 features for unique values. The default value of limit is -1, which will search all features in a layer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">field_index <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>dataProvider()<span style="color:#f92672">.</span>fieldNameIndex(<span style="color:#e6db74">&#39;animal&#39;</span>)
+unique_values <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>uniqueValues(field_index, limit<span style="color:#f92672">=</span><span style="color:#ae81ff">1000</span>)</code></pre></div>
+<p>The categories of an existing layer can be accessed using the <code>categories</code> method. The example below prints the value, label and color name of each category in a layer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">categories <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>rendererV2()<span style="color:#f92672">.</span>categories()
+<span style="color:#66d9ef">for</span> category <span style="color:#f92672">in</span> categories:
+    <span style="color:#66d9ef">print</span> category<span style="color:#f92672">.</span>value(), category<span style="color:#f92672">.</span>label(), category<span style="color:#f92672">.</span>symbol()<span style="color:#f92672">.</span>color()<span style="color:#f92672">.</span>name()</code></pre></div>
+<p>The value and label of an existing category can be modified using the <code>setValue</code> and <code>setLabel</code> methods.</p>
+<h3 id="graduated-symbol-renderer">Graduated symbol renderer</h3>
+<p>The graduated symbol renderer styles features based on values in the layer&rsquo;s attribute table. Unlike the categorized symbol renderer, the graduated symbol renderer defines a range of numerical values defined by upper and lower limits which constitute a &lsquo;match&rsquo;. For example, a value of 3.1 would be matched by a range with an upper limit of 4 and a lower limit of 2.</p>
+<p>The example below defines four ranges for the price of coffee (free, cheap, average and expensive) and creates a graduated symbol renderer to style a layer based on these ranges and the &lsquo;cost&rsquo; field of each feature.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># define ranges: label, lower value, upper value, color name</span>
+coffee_prices <span style="color:#f92672">=</span> (
+    (<span style="color:#e6db74">&#39;Free&#39;</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#e6db74">&#39;green&#39;</span>),
+    (<span style="color:#e6db74">&#39;Cheap&#39;</span>, <span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">1.5</span>, <span style="color:#e6db74">&#39;yellow&#39;</span>),
+    (<span style="color:#e6db74">&#39;Average&#39;</span>, <span style="color:#ae81ff">1.5</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#e6db74">&#39;orange&#39;</span>),
+    (<span style="color:#e6db74">&#39;Expensive&#39;</span>, <span style="color:#ae81ff">2.5</span>, <span style="color:#ae81ff">999.0</span>, <span style="color:#e6db74">&#39;red&#39;</span>),
+)
+
+<span style="color:#75715e"># create a category for each item in animals</span>
+ranges <span style="color:#f92672">=</span> []
+<span style="color:#66d9ef">for</span> label, lower, upper, color <span style="color:#f92672">in</span> coffee_prices:
+    symbol <span style="color:#f92672">=</span> QgsSymbolV2<span style="color:#f92672">.</span>defaultSymbol(layer<span style="color:#f92672">.</span>geometryType())
+    symbol<span style="color:#f92672">.</span>setColor(QColor(color))
+    rng <span style="color:#f92672">=</span> QgsRendererRangeV2(lower, upper, symbol, label)
+    ranges<span style="color:#f92672">.</span>append(rng)
+
+<span style="color:#75715e"># create the renderer and assign it to a layer</span>
+expression <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;cost&#39;</span> <span style="color:#75715e"># field name</span>
+renderer <span style="color:#f92672">=</span> QgsGraduatedSymbolRendererV2(expression, ranges)
+layer<span style="color:#f92672">.</span>setRendererV2(renderer)</code></pre></div>
+<p>As with the categorized symbol renderer, the expression can be more than just a field name. The example below converts costs in from USD to GBP before calculating which range the value belongs to:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># 1 USD = 0.60 GBP on 2014-03-03</span>
+expression <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;&#34;cost&#34; * 0.60&#39;</span></code></pre></div>
+<p>The ranges of an existing layer can be accessed using the <code>ranges</code> method. The example below prints the upper and lower values of a range, as well as the range label and symbol color name for each range in a layer. Note the use of the <code>rng</code> variable, which avoids overriding the Python <code>range</code> function.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">ranges <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>rendererV2()<span style="color:#f92672">.</span>ranges()
+<span style="color:#66d9ef">for</span> rng <span style="color:#f92672">in</span> ranges:
+    <span style="color:#66d9ef">print</span> rng<span style="color:#f92672">.</span>lowerValue(), rng<span style="color:#f92672">.</span>upperValue(), rng<span style="color:#f92672">.</span>label(), rng<span style="color:#f92672">.</span>symbol()<span style="color:#f92672">.</span>color()<span style="color:#f92672">.</span>name()</code></pre></div>
+<p>Python string formatting can be used to make setting labels easier. The example below creates a label showing dollars to two decimal places with a thousand separator based on the upper and lower value of an existing range.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">label <span style="color:#f92672">=</span> <span style="color:#e6db74">&#39;$ {:,.2f} - {:,.2f}&#39;</span><span style="color:#f92672">.</span>format(rng<span style="color:#f92672">.</span>lowerValue(), rng<span style="color:#f92672">.</span>upperValue())
+rng<span style="color:#f92672">.</span>setLabel(rng)</code></pre></div>
+<h3 id="rule-based-renderer">Rule-based renderer</h3>
+<p>The rule-based renderer styles features using a list of rules, defined by expressions. The rules are processed sequentially, with the first matching rule used to render a feature.</p>
+<p>The example below defines a new rule-based renderer for different kinds of road features. Major roads are shown in orange, minor roads are shown in black at scales larger than 1:2,500 and residential roads are shown in grey at scales between 1:100 and 1:1,000.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># define some rules: label, expression, color name, (min scale, max scale)</span>
+road_rules <span style="color:#f92672">=</span> (
+    (<span style="color:#e6db74">&#39;Major road&#39;</span>, <span style="color:#e6db74">&#39;&#34;type&#34; LIKE </span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">major</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74">&#39;orange&#39;</span>, None),
+    (<span style="color:#e6db74">&#39;Minor road&#39;</span>, <span style="color:#e6db74">&#39;&#34;type&#34; LIKE </span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">minor</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74">&#39;black&#39;</span>, (<span style="color:#ae81ff">0.0</span>, <span style="color:#ae81ff">2500.0</span>,)),
+    (<span style="color:#e6db74">&#39;Residential road&#39;</span>, <span style="color:#e6db74">&#39;&#34;type&#34; LIKE </span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">residential</span><span style="color:#ae81ff">\&#39;</span><span style="color:#e6db74">&#39;</span>, <span style="color:#e6db74">&#39;grey&#39;</span>, (<span style="color:#ae81ff">100.0</span>, <span style="color:#ae81ff">1000.0</span>,)),
+)
+
+<span style="color:#75715e"># create a new rule-based renderer</span>
+symbol <span style="color:#f92672">=</span> QgsSymbolV2<span style="color:#f92672">.</span>defaultSymbol(layer<span style="color:#f92672">.</span>geometryType())
+renderer <span style="color:#f92672">=</span> QgsRuleBasedRendererV2(symbol)
+
+<span style="color:#75715e"># get the &#34;root&#34; rule</span>
+root_rule <span style="color:#f92672">=</span> renderer<span style="color:#f92672">.</span>rootRule()
+
+<span style="color:#66d9ef">for</span> label, expression, color_name, scale <span style="color:#f92672">in</span> road_rules:
+    <span style="color:#75715e"># create a clone (i.e. a copy) of the default rule</span>
+    rule <span style="color:#f92672">=</span> root_rule<span style="color:#f92672">.</span>children()[<span style="color:#ae81ff">0</span>]<span style="color:#f92672">.</span>clone()
+    <span style="color:#75715e"># set the label, expression and color</span>
+    rule<span style="color:#f92672">.</span>setLabel(label)
+    rule<span style="color:#f92672">.</span>setFilterExpression(expression)
+    rule<span style="color:#f92672">.</span>symbol()<span style="color:#f92672">.</span>setColor(QColor(color_name))
+    <span style="color:#75715e"># set the scale limits if they have been specified</span>
+    <span style="color:#66d9ef">if</span> scale <span style="color:#f92672">is</span> <span style="color:#f92672">not</span> None:
+        rule<span style="color:#f92672">.</span>setScaleMinDenom(scale[<span style="color:#ae81ff">0</span>])
+        rule<span style="color:#f92672">.</span>setScaleMaxDenom(scale[<span style="color:#ae81ff">1</span>])
+    <span style="color:#75715e"># append the rule to the list of rules</span>
+    root_rule<span style="color:#f92672">.</span>appendChild(rule)
+
+<span style="color:#75715e"># delete the default rule</span>
+root_rule<span style="color:#f92672">.</span>removeChildAt(<span style="color:#ae81ff">0</span>)
+
+<span style="color:#75715e"># apply the renderer to the layer</span>
+layer<span style="color:#f92672">.</span>setRendererV2(renderer)</code></pre></div>
+<h3 id="custom-renderers">Custom renderers</h3>
+<p>See the section in the <a href="http://www.qgis.org/en/docs/pyqgis_developer_cookbook/vector.html#appearance-symbology-of-vector-layers">QGIS cookbook</a>.</p>
+<h2 id="misc">Misc.</h2>
+<p>This section details various hints and tips for working with symbologies not covered elsewhere.</p>
+<h3 id="updating-the-legend-symbology">Updating the legend symbology</h3>
+<p>When the symbology of a layer is changed the changes are not automatically propagated to the legend. The code below shows how to refresh the symbology for a layer in the legend, where <code>iface</code> is an instance of <code>QgisInterface</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">iface<span style="color:#f92672">.</span>legendInterface()<span style="color:#f92672">.</span>refreshLayerSymbology(layer)</code></pre></div>
+<h3 id="copying-symbology-from-one-layer-to-another">Copying symbology from one layer to another</h3>
+<p>Copying the symbology from one layer to another is as simple as getting the renderer from one layer and setting it for the other.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">renderer <span style="color:#f92672">=</span> layer1<span style="color:#f92672">.</span>rendererV2()
+layer2<span style="color:#f92672">.</span>setRenderer(renderer)</code></pre></div>
+<h3 id="importingexporting-symbologies">Importing/Exporting symbologies</h3>
+<p>Importing and exporting layer symbology to/from a QML file is as simple as:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># save layer symbology to a QML file</span>
+layer<span style="color:#f92672">.</span>saveNamedStyle(<span style="color:#e6db74">&#39;/path/to/style.qml&#39;</span>)
+
+<span style="color:#75715e"># load layer symbology from an existing QML file</span>
+layer<span style="color:#f92672">.</span>loadNamedStyle(<span style="color:#e6db74">&#39;/path/to/style.qml&#39;</span>)</code></pre></div>
+<h3 id="data-defined-properties">Data defined properties</h3>
+<p>Data defined properties were introduced in QGIS 2.0. The properties of a symbol layer, such as size or rotation, can be defined on a per-feature basis using an expression.</p>
+<p><img src="/blog/images/qgis/data_defined_properties.png" /></p>
+<p>To set the expression used for a data defined property, use the <code>setDataDefinedProperty</code> method. The example below sets the &lsquo;size&rsquo; property equal to the &lsquo;magnitude&rsquo; attribute + 2.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol_layer<span style="color:#f92672">.</span>setDataDefinedProperty(<span style="color:#e6db74">&#39;size&#39;</span>, <span style="color:#e6db74">&#39;&#34;magnitude&#34; + 2&#39;</span>)</code></pre></div>
+<p>The value of an existing property can be retrieved with:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol_layer<span style="color:#f92672">.</span>dataDefinedProperty(<span style="color:#e6db74">&#39;size&#39;</span>)</code></pre></div>
+<p>A data defined property can be removed with:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol_layer<span style="color:#f92672">.</span>removeDataDefinedProperty(<span style="color:#e6db74">&#39;size&#39;</span>)</code></pre></div>
+<p>The names of available properties can be found using the <code>properties</code> method of an existing symbol layer:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol_layer<span style="color:#f92672">.</span>properties()</code></pre></div>
+<p>Data defined properties will show in the properties dict with the <code>_expression</code> prefix.</p>
+<p>Symbols can be initalised with data defined properties:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol_layer <span style="color:#f92672">=</span> QgsSimpleMarkerSymbolLayerV2<span style="color:#f92672">.</span>create({<span style="color:#e6db74">&#39;size_expression&#39;</span>: <span style="color:#e6db74">&#39;&#34;magnitude&#34;&#39;</span>})</code></pre></div>
+<h3 id="default-symbols">Default symbols</h3>
+<p>The default symbol for any geometry type can be retrieved using <code>QgsSymbolV2.defaultSymbol</code>. This is useful if you want to write something to style a layer that will work with any geometry type (points, lines or polygons).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">symbol <span style="color:#f92672">=</span> QgsSymbolV2<span style="color:#f92672">.</span>defaultSymbol(layer<span style="color:#f92672">.</span>geometryType())</code></pre></div>
+<h3 id="symbol-previews">Symbol previews</h3>
+<p>The preview of a symbol as shown in the style dialog is available as a <code>QImage</code> via the <code>bigSymbolPreviewImage</code> method.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">image <span style="color:#f92672">=</span> symbol<span style="color:#f92672">.</span>bigSymbolPreviewImage()
+image<span style="color:#f92672">.</span>save(<span style="color:#e6db74">&#39;symbol.png&#39;</span>)</code></pre></div>
+<h3 id="crashes">Crashes</h3>
+<p>When working with symbology you must be careful not to use objects whos parent has been destroyed; doing so will cause QGIS to crash.</p>
+
+  </section>
+  <footer>
+    
+
+    
+    <nav class="p-pagination c-pagination">
+      <div class="c-pagination__ctrl">
+        <div class="c-pagination__newer">
+          
+          <a href="https://snorfalorpagus.net/blog/2014/05/12/using-rtree-spatial-indexing-with-ogr/">Newer</a>
+          
+        </div>
+        <div class="c-pagination__older">
+          
+          <a href="https://snorfalorpagus.net/blog/2014/02/27/embedding-pngs-in-svg-markers-in-qgis/">Older</a>
+          
+        </div>
+      </div>
+    </nav>
+    
+
+
+    
+
+  </footer>
+</article>
+  </main>
+  
+
+  <footer class="l-footer">
+    
+
+
+    <p class="p-copyright">
+      
+        
+        &nbsp;&bull;&nbsp;
+        2020
+
+        
+          &nbsp;&bull;&nbsp;
+          <a href="https://snorfalorpagus.net/">snorfalorpagus dot net</a>
+        
+      
+    </p>
+  </footer>
+
+</body>
+</html>
+

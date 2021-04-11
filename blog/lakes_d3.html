@@ -1,0 +1,77 @@
+<style>
+.lakes svg {
+    margin: 0 2px;
+}
+.feature {
+    fill: #75CFF0;
+    stroke: #000;
+    stroke-opacity: 0.4;
+}
+</style>
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script>
+var scale = undefined;
+
+var base_height = 200;
+
+var container = d3.select("div.post").append("div").attr("class", "lakes");
+
+var projection = d3.geo.mercator()
+    .scale(100000);
+
+var path = d3.geo.path()
+    .projection(projection);
+
+d3.json("/static/lakes.json", function(error, json) {
+    if (error) throw error;
+    var features = json.features;
+
+    features.sort(function(a,b) { return b.properties.shape_area - a.properties.shape_area});
+
+    svg = container.selectAll("svg")
+        .data(features);
+    
+    // add paths
+    svg.enter().append("svg")
+        .append("g")
+        .each(function(d, i) {
+        
+            var bounds = path.bounds(d),
+                dx = bounds[1][0] - bounds[0][0],
+                dy = bounds[1][1] - bounds[0][1],
+                x = (bounds[0][0] + bounds[1][0]) / 2,
+                y = (bounds[0][1] + bounds[1][1]) / 2;
+            
+            dx *= 1.04;
+            dy *= 1.04;
+
+            if (scale == undefined) {
+                height = base_height;
+                width = (dx / dy) * base_height;
+                scale = height / dy;
+            } else {
+                height = dy * scale;
+                width = dx * scale;
+            }
+            d3.select(this.parentNode)
+                .attr("width", width)
+                .attr("height", height)
+
+            var translate = [width / 2 - scale * x, height / 2 - scale * y];
+
+            d3.select(this).selectAll("path")
+                .data([d])
+                .enter().append("path")
+                    .attr("class", "feature")
+                    .style("stroke-width", 1 / scale)
+                    .attr('d', path);
+            d3.select(this).attr("transform", "translate(" + translate + ")scale(" + scale + ")");
+        });
+    
+    svg.append("title").text(function(d,i ) {
+        return d.properties.name + " " + Math.round(d.properties.shape_area / Math.pow(1000, 2) * 100) / 100 + "km2";
+    });
+    
+    container.append("p").html("Contains public sector information licensed under the <a href=\"https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/\">Open Government Licence v3.0</a>.");
+});
+</script>

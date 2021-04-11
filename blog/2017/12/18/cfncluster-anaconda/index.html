@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  
+  <title>cfncluster &#43; anaconda</title>
+  <meta property="og:title" content="cfncluster &#43; anaconda" />
+  <meta name="twitter:title" content="cfncluster &#43; anaconda" />
+  
+
+  
+
+  <meta name="author" content=""/>
+  <meta property="og:site_name" content="snorfalorpagus dot net" />
+  <meta property="og:url" content="https://snorfalorpagus.net/blog/2017/12/18/cfncluster-anaconda/" />
+
+  
+  <meta name="twitter:card" content="summary" />
+
+  
+
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <meta name="generator" content="Hugo 0.82.0" />
+  
+  
+
+  <link rel="stylesheet" href="https://snorfalorpagus.net/css/style.css" />
+  
+  
+  
+  <script type="text/javascript" src="https://snorfalorpagus.net/js/bundle.js"></script>
+  
+
+</head>
+
+<body>
+  <a href="#main" class="skip-link p-screen-reader-text">Skip to content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;" aria-hidden="true"> <symbol id="icon-500px" viewBox="0 0 16 16"><g> <path d="M3.953 10.512a5.24 5.24 0 0 0 6.996 3.141c.625-.262 1.184-.641 1.666-1.122s.859-1.041 1.122-1.666c.272-.647.412-1.331.412-2.037s-.137-1.394-.412-2.037c-.262-.625-.641-1.184-1.122-1.666s-1.041-.859-1.666-1.122a5.226 5.226 0 0 0-2.037-.413c-.716 0-1.431.144-2.066.413-.509.216-1.372.769-1.875 1.291l-.003.003V.984h7.241c.262-.003.262-.372.262-.491 0-.122 0-.487-.266-.491H4.377a.343.343 0 0 0-.344.341v6.066c0 .197.244.338.472.384.444.094.544-.047.653-.197l.016-.019c.166-.247.681-.766.688-.772a4.262 4.262 0 0 1 3.037-1.25c1.147 0 2.222.444 3.028 1.25a4.245 4.245 0 0 1 1.256 3.019 4.236 4.236 0 0 1-1.25 3.019 4.336 4.336 0 0 1-3.047 1.25 4.136 4.136 0 0 1-2.159-.597l.003-3.688c0-.491.213-1.028.572-1.431a2.09 2.09 0 0 1 1.588-.716c.594 0 1.15.225 1.566.634.409.406.637.95.637 1.528a2.179 2.179 0 0 1-2.206 2.197c-.238 0-.672-.106-.691-.109-.25-.075-.356.272-.391.387-.134.441.069.528.109.541.397.125.659.147 1.003.147a3.173 3.173 0 0 0 3.169-3.169c0-1.734-1.422-3.144-3.166-3.144-.856 0-1.659.328-2.263.919-.575.566-.903 1.319-.903 2.069v.019c-.003.094-.003 2.306-.006 3.031l-.003-.003c-.328-.363-.653-.919-.869-1.488-.084-.222-.275-.184-.534-.103-.125.034-.469.141-.391.394zm3.722-.865c0 .106.097.2.156.253l.019.019c.1.097.194.147.281.147a.181.181 0 0 0 .131-.05c.044-.041.537-.544.588-.591l.553.55c.05.056.106.088.172.088.088 0 .184-.053.284-.156.238-.244.119-.375.063-.438l-.559-.559.584-.588c.128-.137.016-.284-.097-.397-.162-.162-.322-.206-.422-.112l-.581.581-.588-.588a.16.16 0 0 0-.113-.047c-.078 0-.172.053-.275.156-.181.181-.219.306-.125.406l.588.584-.584.584c-.053.05-.078.103-.075.156zm1.278-7.931c-.938 0-1.938.191-2.669.506a.207.207 0 0 0-.134.181.753.753 0 0 0 .069.337c.047.116.166.425.4.334a6.689 6.689 0 0 1 2.334-.444 6.35 6.35 0 0 1 2.469.497c.622.263 1.206.644 1.844 1.194a.22.22 0 0 0 .147.059c.125 0 .244-.122.347-.237.169-.191.287-.35.119-.509a6.858 6.858 0 0 0-2.1-1.356 7.326 7.326 0 0 0-2.825-.563zM14.006 13.3c-.113-.113-.209-.178-.294-.203s-.162-.006-.222.053l-.056.056a6.32 6.32 0 0 1-6.938 1.356 6.336 6.336 0 0 1-2.013-1.356 6.046 6.046 0 0 1-1.356-2.012c-.288-.713-.381-1.247-.413-1.422-.003-.016-.006-.028-.006-.037-.041-.206-.231-.222-.503-.178-.112.019-.459.072-.428.319v.006a7.261 7.261 0 0 0 2.04 3.994 7.266 7.266 0 0 0 10.288 0l.059-.059c.069-.084.134-.225-.159-.516z"/> </g></symbol> <symbol id="icon-codepen" viewBox="0 0 16 16"><g> <path d="M14.777 5.751l-7-4.667a.5.5 0 0 0-.555 0l-7 4.667a.501.501 0 0 0-.223.416v4.667c0 .167.084.323.223.416l7 4.667a.5.5 0 0 0 .554 0l7-4.667a.501.501 0 0 0 .223-.416V6.167a.501.501 0 0 0-.223-.416zM7.5 10.232L4.901 8.5 7.5 6.768 10.099 8.5 7.5 10.232zM8 5.899V2.434l5.599 3.732L11 7.898l-3-2zm-1 0l-3 2-2.599-1.732L7 2.435V5.9zM3.099 8.5L1 9.899V7.101L3.099 8.5zM4 9.101l3 2v3.465l-5.599-3.732L4 9.102zm4 2l3-2 2.599 1.732L8 14.565V11.1zM11.901 8.5L14 7.101v2.798L11.901 8.5z"/> </g></symbol> <symbol id="icon-dribbble" viewBox="0 0 16 16"><g> <path d="M8 16c-4.412 0-8-3.588-8-8s3.587-8 8-8c4.412 0 8 3.587 8 8s-3.588 8-8 8zm6.747-6.906c-.234-.075-2.116-.634-4.256-.291a29.7 29.7 0 0 1 1.328 4.872 6.845 6.845 0 0 0 2.928-4.581zM10.669 14.3c-.103-.6-.497-2.688-1.456-5.181-.016.006-.031.009-.044.016-3.856 1.344-5.241 4.016-5.362 4.266a6.807 6.807 0 0 0 6.863.9zm-7.747-1.722c.156-.266 2.031-3.369 5.553-4.509a7.04 7.04 0 0 1 .269-.081 24.04 24.04 0 0 0-.553-1.159c-3.409 1.022-6.722.978-7.022.975-.003.069-.003.138-.003.209 0 1.753.666 3.356 1.756 4.566zM1.313 6.609c.306.003 3.122.016 6.319-.831a43.092 43.092 0 0 0-2.534-3.953 6.854 6.854 0 0 0-3.784 4.784zM6.4 1.366a36.612 36.612 0 0 1 2.55 4c2.431-.909 3.459-2.294 3.581-2.469A6.799 6.799 0 0 0 6.4 1.366zm6.891 2.325c-.144.194-1.291 1.663-3.816 2.694.159.325.313.656.453.991.05.119.1.234.147.353 2.275-.284 4.534.172 4.759.219a6.816 6.816 0 0 0-1.544-4.256z"/> </g></symbol> <symbol id="icon-facebook" viewBox="0 0 16 16"><g> <path d="M9.5 3H12V0H9.5C7.57 0 6 1.57 6 3.5V5H4v3h2v8h3V8h2.5l.5-3H9V3.5c0-.271.229-.5.5-.5z"/> </g></symbol> <symbol id="icon-feed" viewBox="0 0 16 16"><g> <path d="M2.13 11.733c-1.175 0-2.13.958-2.13 2.126 0 1.174.955 2.122 2.13 2.122a2.126 2.126 0 0 0 2.133-2.122 2.133 2.133 0 0 0-2.133-2.126zM.002 5.436v3.067c1.997 0 3.874.781 5.288 2.196a7.45 7.45 0 0 1 2.192 5.302h3.08c0-5.825-4.739-10.564-10.56-10.564zM.006 0v3.068C7.128 3.068 12.924 8.87 12.924 16H16C16 7.18 8.824 0 .006 0z"/> </g></symbol> <symbol id="icon-flickr" viewBox="0 0 16 16"><g> <path d="M0 8.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0zm9 0a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/> </g></symbol> <symbol id="icon-github" viewBox="0 0 16 16"><g> <path d="M8 .198a8 8 0 0 0-2.529 15.591c.4.074.547-.174.547-.385 0-.191-.008-.821-.011-1.489-2.226.484-2.695-.944-2.695-.944-.364-.925-.888-1.171-.888-1.171-.726-.497.055-.486.055-.486.803.056 1.226.824 1.226.824.714 1.223 1.872.869 2.328.665.072-.517.279-.87.508-1.07-1.777-.202-3.645-.888-3.645-3.954 0-.873.313-1.587.824-2.147-.083-.202-.357-1.015.077-2.117 0 0 .672-.215 2.201.82A7.672 7.672 0 0 1 8 4.066c.68.003 1.365.092 2.004.269 1.527-1.035 2.198-.82 2.198-.82.435 1.102.162 1.916.079 2.117.513.56.823 1.274.823 2.147 0 3.073-1.872 3.749-3.653 3.947.287.248.543.735.543 1.481 0 1.07-.009 1.932-.009 2.195 0 .213.144.462.55.384A8 8 0 0 0 8.001.196z"/> </g></symbol> <symbol id="icon-gitlab" viewBox="0 0 28 28"><g> <path d="M1.625 11.031L14 26.89.437 17.046a1.092 1.092 0 0 1-.391-1.203l1.578-4.813zm7.219 0h10.313L14.001 26.89zM5.75 1.469l3.094 9.562H1.625l3.094-9.562a.548.548 0 0 1 1.031 0zm20.625 9.562l1.578 4.813a1.09 1.09 0 0 1-.391 1.203l-13.563 9.844 12.375-15.859zm0 0h-7.219l3.094-9.562a.548.548 0 0 1 1.031 0z"/> </g></symbol> <symbol id="icon-google-plus" viewBox="0 0 16 16"><g> <path d="M5.091 7.147v1.747h2.888c-.116.75-.872 2.197-2.888 2.197-1.737 0-3.156-1.441-3.156-3.216s1.419-3.216 3.156-3.216c.991 0 1.65.422 2.028.784L8.5 4.112c-.888-.828-2.037-1.331-3.409-1.331C2.275 2.784 0 5.059 0 7.875s2.275 5.091 5.091 5.091c2.937 0 4.888-2.066 4.888-4.975 0-.334-.037-.591-.081-.844H5.092zM16 7h-1.5V5.5H13V7h-1.5v1.5H13V10h1.5V8.5H16z"/> </g></symbol> <symbol id="icon-instagram" viewBox="0 0 22 22"><g> <path d="M15.445 0H6.554A6.559 6.559 0 0 0 0 6.554v8.891A6.559 6.559 0 0 0 6.554 22h8.891a6.56 6.56 0 0 0 6.554-6.555V6.554A6.557 6.557 0 0 0 15.445 0zm4.342 15.445a4.343 4.343 0 0 1-4.342 4.342H6.554a4.341 4.341 0 0 1-4.341-4.342V6.554a4.34 4.34 0 0 1 4.341-4.341h8.891a4.342 4.342 0 0 1 4.341 4.341l.001 8.891z"/> <path d="M11 5.312A5.693 5.693 0 0 0 5.312 11 5.694 5.694 0 0 0 11 16.688 5.694 5.694 0 0 0 16.688 11 5.693 5.693 0 0 0 11 5.312zm0 9.163a3.475 3.475 0 1 1-.001-6.95 3.475 3.475 0 0 1 .001 6.95zm5.7-10.484a1.363 1.363 0 1 1-1.364 1.364c0-.752.51-1.364 1.364-1.364z"/> </g></symbol> <symbol id="icon-linkedin" viewBox="0 0 16 16"><g> <path d="M6 6h2.767v1.418h.04C9.192 6.727 10.134 6 11.539 6 14.46 6 15 7.818 15 10.183V15h-2.885v-4.27c0-1.018-.021-2.329-1.5-2.329-1.502 0-1.732 1.109-1.732 2.255V15H6V6zM1 6h3v9H1V6zM4 3.5a1.5 1.5 0 1 1-3.001-.001A1.5 1.5 0 0 1 4 3.5z"/> </g></symbol> <symbol id="icon-mail" viewBox="0 0 22 18"><g> <path fill="#000" d="M0 17.225V.776h22v16.447H0v.002zm3.011-1.815h15.978l-5.111-5.115L11 13.179l-2.877-2.883-5.112 5.114zm-1.216-1.275l5.077-5.09L1.795 3.98v10.155zm13.332-5.09l5.079 5.09V3.979l-5.079 5.066zm-4.126 1.588l8.022-8.027-16.045-.001 8.023 8.028z"/> </g></symbol> <symbol id="icon-medium" viewBox="0 0 24 24"><g> <path d="M22.085 4.733L24 2.901V2.5h-6.634l-4.728 11.768L7.259 2.5H.303v.401L2.54 5.594c.218.199.332.49.303.783V16.96c.069.381-.055.773-.323 1.05L0 21.064v.396h7.145v-.401l-2.52-3.049a1.244 1.244 0 0 1-.347-1.05V7.806l6.272 13.659h.729l5.393-13.659v10.881c0 .287 0 .346-.188.534l-1.94 1.877v.402h9.412v-.401l-1.87-1.831a.556.556 0 0 1-.214-.534V5.267a.554.554 0 0 1 .213-.534z"/> </g></symbol> <symbol id="icon-npm" viewBox="0 0 16 16"><g> <path d="M0 0v16h16V0H0zm13 13h-2V5H8v8H3V3h10v10z"/> </g></symbol> <symbol id="icon-pinterest" viewBox="0 0 16 16"><g> <path d="M8 1.069a6.93 6.93 0 0 0-2.525 13.384c-.059-.547-.116-1.391.025-1.988.125-.541.813-3.444.813-3.444s-.206-.416-.206-1.028c0-.963.559-1.684 1.253-1.684.591 0 .878.444.878.975 0 .594-.378 1.484-.575 2.306-.166.691.344 1.253 1.025 1.253 1.231 0 2.178-1.3 2.178-3.175 0-1.659-1.194-2.819-2.894-2.819-1.972 0-3.128 1.478-3.128 3.009 0 .597.228 1.234.516 1.581.056.069.066.128.047.2a95.89 95.89 0 0 1-.194.787c-.031.128-.1.153-.231.094-.866-.403-1.406-1.669-1.406-2.684 0-2.188 1.587-4.194 4.578-4.194 2.403 0 4.272 1.712 4.272 4.003 0 2.388-1.506 4.313-3.597 4.313-.703 0-1.362-.366-1.588-.797 0 0-.347 1.322-.431 1.647-.156.603-.578 1.356-.862 1.816a6.93 6.93 0 0 0 8.984-6.622 6.931 6.931 0 0 0-6.931-6.934z"/> </g></symbol> <symbol id="icon-search" viewBox="0 0 16 16"><g> <path d="M15.504 13.616l-3.79-3.223c-.392-.353-.811-.514-1.149-.499a6 6 0 1 0-.672.672c-.016.338.146.757.499 1.149l3.223 3.79c.552.613 1.453.665 2.003.115s.498-1.452-.115-2.003zM6 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/> </g></symbol> <symbol id="icon-strava" viewBox="0 0 24 24"><g> <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/> </g></symbol> <symbol id="icon-tumblr" viewBox="0 0 16 16"><g> <path d="M9.001 7v3.659c0 .928-.012 1.463.086 1.727.098.262.342.534.609.691.354.212.758.318 1.214.318.81 0 1.289-.107 2.09-.633v2.405a9.089 9.089 0 0 1-1.833.639A7.93 7.93 0 0 1 9.369 16a4.9 4.9 0 0 1-1.725-.276 4.195 4.195 0 0 1-1.438-.79c-.398-.343-.672-.706-.826-1.091s-.23-.944-.23-1.676V6.556H3.003V4.29c.628-.204 1.331-.497 1.778-.877a4.386 4.386 0 0 0 1.08-1.374C6.133 1.505 6.32.825 6.422 0h2.579v4H13v3H9.001z"/> </g></symbol> <symbol id="icon-twitter" viewBox="0 0 16 16"><g> <path d="M16 3.538a6.461 6.461 0 0 1-1.884.516 3.301 3.301 0 0 0 1.444-1.816 6.607 6.607 0 0 1-2.084.797 3.28 3.28 0 0 0-2.397-1.034 3.28 3.28 0 0 0-3.197 4.028 9.321 9.321 0 0 1-6.766-3.431 3.284 3.284 0 0 0 1.015 4.381A3.301 3.301 0 0 1 .643 6.57v.041A3.283 3.283 0 0 0 3.277 9.83a3.291 3.291 0 0 1-1.485.057 3.293 3.293 0 0 0 3.066 2.281 6.586 6.586 0 0 1-4.862 1.359 9.286 9.286 0 0 0 5.034 1.475c6.037 0 9.341-5.003 9.341-9.341 0-.144-.003-.284-.009-.425a6.59 6.59 0 0 0 1.637-1.697z"/> </g></symbol> <symbol id="icon-vimeo" viewBox="0 0 16 16"><g> <path d="M15.994 4.281c-.072 1.556-1.159 3.691-3.263 6.397-2.175 2.825-4.016 4.241-5.522 4.241-.931 0-1.722-.859-2.366-2.581-.431-1.578-.859-3.156-1.291-4.734-.478-1.722-.991-2.581-1.541-2.581-.119 0-.538.253-1.256.753l-.753-.969c.791-.694 1.569-1.388 2.334-2.081 1.053-.909 1.844-1.387 2.372-1.438 1.244-.119 2.013.731 2.3 2.553.309 1.966.525 3.188.647 3.666.359 1.631.753 2.447 1.184 2.447.334 0 .838-.528 1.509-1.588.669-1.056 1.028-1.862 1.078-2.416.097-.912-.262-1.372-1.078-1.372a2.98 2.98 0 0 0-1.184.263c.787-2.575 2.287-3.825 4.506-3.753 1.641.044 2.416 1.109 2.322 3.194z"/> </g></symbol> <symbol id="icon-wordpress" viewBox="0 0 16 16"><g> <path d="M2 8c0 2.313 1.38 4.312 3.382 5.259L2.52 5.622A5.693 5.693 0 0 0 2 8zm10.05-.295c0-.722-.266-1.222-.495-1.612-.304-.482-.589-.889-.589-1.371 0-.537.418-1.037 1.008-1.037.027 0 .052.003.078.005A6.064 6.064 0 0 0 8 2.156 6.036 6.036 0 0 0 2.987 4.79c.141.004.274.007.386.007.627 0 1.599-.074 1.599-.074.323-.018.361.444.038.482 0 0-.325.037-.687.055l2.185 6.33 1.313-3.835-.935-2.495a12.304 12.304 0 0 1-.629-.055c-.323-.019-.285-.5.038-.482 0 0 .991.074 1.58.074.627 0 1.599-.074 1.599-.074.323-.018.362.444.038.482 0 0-.326.037-.687.055l2.168 6.282.599-1.947c.259-.809.457-1.389.457-1.889zm-3.945.806l-1.8 5.095a6.148 6.148 0 0 0 3.687-.093.52.52 0 0 1-.043-.081L8.105 8.511zm5.16-3.315c.026.186.04.386.04.601 0 .593-.114 1.259-.456 2.093l-1.833 5.16c1.784-1.013 2.983-2.895 2.983-5.051a5.697 5.697 0 0 0-.735-2.803zM8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14z"/> </g></symbol> <symbol id="icon-youtube" viewBox="0 0 16 16"><g> <path d="M15.841 4.8s-.156-1.103-.637-1.587c-.609-.637-1.291-.641-1.603-.678-2.237-.163-5.597-.163-5.597-.163h-.006s-3.359 0-5.597.163c-.313.038-.994.041-1.603.678C.317 3.697.164 4.8.164 4.8S.005 6.094.005 7.391v1.213c0 1.294.159 2.591.159 2.591s.156 1.103.634 1.588c.609.637 1.409.616 1.766.684 1.281.122 5.441.159 5.441.159s3.363-.006 5.6-.166c.313-.037.994-.041 1.603-.678.481-.484.637-1.588.637-1.588s.159-1.294.159-2.591V7.39c-.003-1.294-.162-2.591-.162-2.591zm-9.494 5.275V5.578l4.322 2.256-4.322 2.241z"/> </g></symbol></svg>
+  <header class="l-header">
+    
+    <p class="c-title p-title"><a href="https://snorfalorpagus.net/" class="p-title__link">snorfalorpagus dot net</a></p>
+    
+    
+  </header>
+
+  <main id="main" class="l-main">
+
+
+<article class="p-article">
+  <header>
+    <h1>cfncluster &#43; anaconda</h1>
+    <div>
+      
+        <div class="c-time">
+          Posted on
+<time datetime="2017-12-18T00:00:00Z">
+  Dec 18, 2017
+</time>
+
+        </div>
+      
+      
+    </div>
+  </header>
+  
+  <section id="js-article" class="p-article__body">
+    <p><a href="https://github.com/awslabs/cfncluster">CfnCluster</a> is a tool for
+deploying and managing high performance clusters on AWS. It uses <a href="https://aws.amazon.com/cloudformation/">AWS
+CloudFormation</a> to allow you to
+quickly configure and deploy a cluster using EC2 instances. The cluster
+automatically scales the number of workers based on the number of jobs
+in the task queue, starting new instances as required (to a
+preconfigured maximum) and shutting down idle nodes. The entire cluster
+can be shutdown and restarted easily which is great for heavy but
+intermittent workloads. Instances run a custom AMI of Amazon Linux
+(other options are available). I&rsquo;ve been using CfnCluster extensively
+over the last year to run water resource simulations built in Python
+(with the Anaconda Python distribution). My workflow often involves
+running a few <code>c4.8xlarge</code> nodes (36 cores each!) flat out for a few
+days of simulation, then shutting the whole thing down for a couple of
+weeks. Although there are some things I don&rsquo;t like about it, CfnCluster
+has been much faster and easier than trying to roll my own solution.</p>
+<p>This post gives some instructions on setting up a cluster using
+cfncluster and miniconda. It assumes you&rsquo;re already familiar with the
+basics of AWS and EC2.</p>
+<h2 id="installation-and-basic-configuration">Installation and basic configuration</h2>
+<p>CfnCluster is available via pip (or development version from GitHub
+<a href="https://github.com/awslabs/cfncluster">awslabs/cfncluster</a>):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">pip install cfncluster</code></pre></div>
+<p>The first time you use cfncluster you&rsquo;ll need to configure it. This can
+be done with an interactive script (<code>cfncluster configure</code>), or
+manually. I suggest using the interactive prompt then modifying the
+resulting file.</p>
+<p>The config file is located at <code>~/.cfncluster/config</code> (linux) or
+<code>%USERPROFILE%\.cfncluster\config</code> (windows). An example is given below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#66d9ef">[aws]</span>
+<span style="color:#a6e22e">aws_access_key_id</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">YOUR_ACCESS_KEY_ID</span>
+<span style="color:#a6e22e">aws_secret_access_key</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">YOUR_SECRET_KEY</span>
+<span style="color:#a6e22e">aws_region_name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">eu-west-1</span>
+
+<span style="color:#66d9ef">[cluster default]</span>
+<span style="color:#a6e22e">key_name</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">ec2-eu-west-1</span>
+<span style="color:#a6e22e">vpc_settings</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">public</span>
+
+<span style="color:#a6e22e">master_instance_type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">c4.large</span>
+<span style="color:#a6e22e">compute_instance_type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">c4.8xlarge</span>
+
+<span style="color:#a6e22e">initial_queue_size</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">0</span>
+<span style="color:#a6e22e">max_queue_size</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">1</span>
+
+<span style="color:#a6e22e">scheduler</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">sge</span>
+
+<span style="color:#a6e22e">cluster_type</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">spot</span>
+<span style="color:#a6e22e">spot_price</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">0.6</span>
+
+<span style="color:#a6e22e">post_install</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">URL_TO_POST_INSTALL_SCRIPT</span>
+
+<span style="color:#a6e22e">ebs_settings</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">custom</span>
+
+<span style="color:#66d9ef">[ebs custom]</span>
+<span style="color:#a6e22e">ebs_volume_id</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">SHARED_VOLUME_ID</span>
+
+<span style="color:#66d9ef">[vpc public]</span>
+<span style="color:#a6e22e">vpc_id</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">vpc-284dce4d</span>
+<span style="color:#a6e22e">master_subnet_id</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">subnet-283a8471</span>
+
+<span style="color:#66d9ef">[global]</span>
+<span style="color:#a6e22e">cluster_template</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">default</span>
+<span style="color:#a6e22e">update_check</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">true</span>
+<span style="color:#a6e22e">sanity_check</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">true</span></code></pre></div>
+<h3 id="access-keys">Access keys</h3>
+<p>See the <a href="https://docs.aws.amazon.com/IAM/latest/UserGuide/id_credentials_access-keys.html#Using_CreateAccessKey">AWS documentation on configuring access
+keys</a>.</p>
+<h3 id="subnets-etc">Subnets, etc.</h3>
+<p>TODO: How to find VPC ID &amp; SUBNET ID?</p>
+<h3 id="shared-volume">Shared volume</h3>
+<p>Create a volume to be shared between the master/workers. This is a
+persistent storage.</p>
+<p><a href="http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html">http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ebs-creating-volume.html</a></p>
+<p>EBS Volume ID looks like this: vol-06e25286b0ddbfddd</p>
+<p>This will be mounted as <code>/shared</code> on all instances. It&rsquo;s actually
+mounted on the master node, and shared via NFS with the workers.</p>
+<h2 id="on-demand-vs-spot-instances">On Demand vs Spot instances</h2>
+<p>Using spot instances instead of on demand instances can cost
+significantly less, although you risk your instances being terminated at
+a moment&rsquo;s notice. When using spot instances you must ensure your tasks
+are sufficiently robust to being terminated like this. The master node
+is always run as an on demand instance to prevent the whole cluster
+falling apart.</p>
+<p>You can use the spot price history tool available in the AWS console to
+identify a suitable price for the instance type you&rsquo;re using. Set
+<code>cluster_type = spot</code> in the config and set <code>spot_price = X</code> where X is
+the maximum hourly rate you&rsquo;re willing to pay in USD.</p>
+<h3 id="queue-size">Queue size</h3>
+<p>The queue size is the number of compute instances and does not include
+the master node. When the cluster is started an initial number of
+instances are started. The number of running instances will
+automatically scale based on the number of pending jobs in the task
+queue. Idle instances will terminate just before the end of their 1-hour
+charging slot.</p>
+<p>Both the maximum and desired number of node can be edited manually via
+the AWS console. Go to: AUTO SCALING &gt; Auto Scaling Groups &gt; Edit
+&gt; Desired / Min / Max. If the cluster is stopped / restarted then
+these numbers will be reset to those in the configuration.</p>
+<h2 id="managing-the-cluster">Managing the cluster</h2>
+<p>To create a new cluster using the default configuration
+(<code>~\.cfncluster\config</code>), use:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cfncluster create mycluster</code></pre></div>
+<p>To stop it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cfncluster stop mycluster</code></pre></div>
+<p>To restart it after stopping:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cfncluster start mycluster</code></pre></div>
+<p>And to destroy it:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">cfncluster delete mycluster</code></pre></div>
+<p>When the cluster is stopped you will only be charged for data storage of
+the master instance drive (and any shared drive) and for the associated
+elastic IP address.</p>
+<h2 id="login-with-ssh">Login with SSH</h2>
+<p>To login to the master node you need to use your EC2 SSH key.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ssh -i YOUR_KEY.pem ec2-user@YOUR_MASTER_IP_ADDRESS</code></pre></div>
+<p>This is simplified by configuring a host in your SSH config,
+<code>$HOME/.ssh/config</code> (linux) or <code>%USERPROFILE%\.ssh\config</code> (windows).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">Host ec2master
+Hostname YOUR_MASTER_IP_ADDRESS
+User ec2-user
+IdentityFile ~/.ssh/ec2-eu-west-1.pem</code></pre></div>
+<p>Replace <code>YOUR_MASTER_IP_ADDRESS</code> with the IP address of the master node.
+You can find this in the AWS console, or as the MasterServer output of
+<code>cfncluster start</code>.</p>
+<p>Then you can:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">ssh ec2master</code></pre></div>
+<p>Similarly, you can upload files onto the shared drive. The example below
+copies <code>some_file.zip</code> to the shared drive mounted at <code>/shared</code>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">scp some_file.zip ec2master:/shared/</code></pre></div>
+<h2 id="installing-miniconda-with-a-post-install-script">Installing Miniconda with a post install script</h2>
+<p>CfnCluster uses a custom AMI based on Amazon Linux which includes the
+basics you need to manage the cluster. If you need additional software
+you will need to install it. This can be done using <code>yum</code> on the master
+node, but these changes will not automatically propagate to the compute
+nodes where the tasks are executed. One solution would be to further
+customise the AMI to include the packages you need, but this is
+burdonsom as you&rsquo;ll need to update the image every time cfncluster
+updates. Instead you can use the post install script to install
+additional software. This script is automatically run when instances
+start, after cfncluster has done the usual setup tasks.</p>
+<p>Downloading and installing a large number of packages on conda can be
+slow. To reduce the time it takes instances to start up a compromise is
+found by installing Miniconda once (on the master node), creating a
+<code>.tar.bz2</code> file of the install directory, then simply extracting it onto
+the new instances when they are created. This can be done using the post
+install script. The install is done when the worker nodes start, if if
+you need to update packages you will need to restart the nodes. There is
+probably a more elegant solution to this issue, but this was good enough
+for my needs.</p>
+<p>The post install script is specified in the config as
+<code>post_install = ???</code>. I recommend keeping this script as short and
+simple as possible. If it raises an error the instance will terminate
+before it finishes starting up.</p>
+<p>An example <code>post_install.sh</code> is given below, which extracts
+miniconda3.tar.bz2 into /opt and symlinks it. This will be run on all of
+the workers.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+cd /opt
+mkdir -p /opt/miniconda3
+chown ec2-user:ec2-user miniconda3
+sudo -u ec2-user tar xfj /shared/miniconda3.tar.bz2
+sudo -u ec2-user ln -f -s /opt/miniconda3 /home/ec2-user/miniconda3</code></pre></div>
+<p>Once you&rsquo;ve written the script you should upload it to S3, make it
+publicly accessible, and put the URL into the config. e.g.:</p>
+<p><a href="https://s3-eu-west-1.amazonaws.com/snorf-eu-west-1/post_install.sh">https://s3-eu-west-1.amazonaws.com/snorf-eu-west-1/post_install.sh</a></p>
+<p>The script used to create the <code>miniconda.tar.bz2</code> is given below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># quit immediately on error</span>
+set -e
+
+<span style="color:#75715e"># install miniconda</span>
+rm -rf /opt/miniconda3
+mkdir -p /opt/miniconda3
+ln -f -s /opt/miniconda3 ~/miniconda3
+CONDA_SCRIPT<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;Miniconda3-latest-Linux-x86_64.sh&#34;</span>
+wget https://repo.continuum.io/miniconda/<span style="color:#e6db74">${</span>CONDA_SCRIPT<span style="color:#e6db74">}</span> -O <span style="color:#e6db74">${</span>CONDA_SCRIPT<span style="color:#e6db74">}</span>
+bash <span style="color:#e6db74">${</span>CONDA_SCRIPT<span style="color:#e6db74">}</span> -b -p /opt/miniconda3 -f
+
+<span style="color:#75715e"># activate root environment</span>
+source $HOME/miniconda3/bin/activate
+
+<span style="color:#75715e"># add channels</span>
+conda config --add channels conda-forge
+
+<span style="color:#75715e"># upgrade everything</span>
+conda upgrade --all --quiet --yes
+
+<span style="color:#75715e"># INSTALL YOUR CUSTOM MODULES HERE</span>
+
+<span style="color:#75715e"># create tarball</span>
+conda clean --all --yes
+cd /opt
+chown -R ec2-user:ec2-user miniconda3
+rm -rf /opt/miniconda3/pkgs/*
+tar -cvjSf /shared/miniconda3.tar.bz2 miniconda3</code></pre></div>
+<h2 id="managing-jobs-with-sun-grid-engine-sge-now-orange-grid-engine">Managing jobs with Sun Grid Engine (SGE), now Orange Grid Engine</h2>
+<p>There are lots of tutorials already on the use of SGE, including the
+<a href="http://www.oracle.com/technetwork/oem/host-server-mgmt/twp-gridengine-beginner-167116.pdf">Beginner&rsquo;s Guide to Oracle Grid
+Engine</a>.</p>
+<p>View nodes in the cluster:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">qhost</code></pre></div>
+<p>An example output showing 3 running compute instances is shown below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-text" data-lang="text">HOSTNAME                ARCH         NCPU NSOC NCOR NTHR  LOAD  MEMTOT  MEMUSE  SWAPTO  SWAPUS
+----------------------------------------------------------------------------------------------
+global                  -               -    -    -    -     -       -       -       -       -
+ip-172-31-13-176        lx-amd64        1    1    1    1  0.01  995.4M  137.1M     0.0     0.0
+ip-172-31-3-231         lx-amd64        1    1    1    1  0.04  995.4M  135.9M     0.0     0.0
+ip-172-31-6-55          lx-amd64        1    1    1    1  0.01  995.4M  136.3M     0.0     0.0</code></pre></div>
+<p>To submit a job (which may have multiple tasks):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">qsub myjob.sh</code></pre></div>
+<p>Job script is a shell script with some additional header information.
+Don&rsquo;t forget to activate your conda environment.</p>
+<p>Set <code>PYTHONUNBUFFERED=1</code> or call Python with the <code>-u</code> flag to ensure
+output is written to log files immediately.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span>
+<span style="color:#75715e">#$ -cwd</span>
+<span style="color:#75715e">#$ -j y</span>
+<span style="color:#75715e">#$ -S /bin/bash</span>
+<span style="color:#75715e">#</span>
+
+echo <span style="color:#e6db74">&#34;Running on </span><span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># activate conda</span>
+source <span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span>/miniconda3/bin/activate
+
+<span style="color:#75715e"># run model</span>
+cd /shared/demo
+python -u simple_model.py</code></pre></div>
+<p>Another example is given below, with 100 tasks (1-100) in a single job.
+The task ID is passed as an argument to the Python script. It&rsquo;s the
+responsibility of the script to do something useful with this.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span><span style="color:#75715e">#</span>
+<span style="color:#75715e">#$ -cwd</span>
+<span style="color:#75715e">#$ -j y</span>
+<span style="color:#75715e">#$ -S /bin/bash</span>
+<span style="color:#75715e">#$ -o /shared/out</span>
+<span style="color:#75715e">#$ -t 1:100:1</span>
+<span style="color:#75715e">#</span>
+
+echo <span style="color:#e6db74">&#34;Task </span><span style="color:#e6db74">${</span>SGE_TASK_ID<span style="color:#e6db74">}</span><span style="color:#e6db74"> running on </span><span style="color:#e6db74">${</span>HOSTNAME<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#75715e"># activate conda</span>
+source <span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span>/miniconda3/bin/activate
+
+<span style="color:#75715e"># run model</span>
+cd /shared/demo
+python -u simple_model.py --run-id <span style="color:#e6db74">${</span>SGE_TASK_ID<span style="color:#e6db74">}</span></code></pre></div>
+<p>To view details about jobs in the queue (both running and waiting):</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">qstat</code></pre></div>
+<h2 id="some-useful-scripts">Some useful scripts</h2>
+<p>This section includes a couple of useful scripts for use from the master
+node.</p>
+<h3 id="restarting-ganglia">Restarting Ganglia</h3>
+<p>Sometimes Ganglia crashes with the error message:</p>
+<p><code>Error: There was an error collecting ganglia data (127.0.0.1:8652): fsockopen error: Connection refused</code></p>
+<p>You can use the following script to restart ganglia from the master
+node.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># restart ganglia and httpd</span>
+<span style="color:#75715e"># Error: There was an error collecting ganglia data (127.0.0.1:8652): fsockopen error: Connection refused</span>
+
+service gmond stop
+service gmetad stop
+service httpd stop
+
+service gmond start
+service gmetad start
+service httpd start</code></pre></div>
+<h3 id="delete-all-jobs">Delete all jobs</h3>
+<p>Sometimes things go wrong and you need to delete all of the jobs!</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e">#!/bin/bash
+</span><span style="color:#75715e"></span>
+<span style="color:#75715e"># delete all jobs in the schedule</span>
+qstat | awk <span style="color:#e6db74">&#39;{print $1}&#39;</span> | tail -n +3 | xargs qdel</code></pre></div>
+
+  </section>
+  <footer>
+    
+
+    
+    <nav class="p-pagination c-pagination">
+      <div class="c-pagination__ctrl">
+        <div class="c-pagination__newer">
+          
+          <a href="https://snorfalorpagus.net/blog/2018/07/08/the-equals-operation-in-shapely/">Newer</a>
+          
+        </div>
+        <div class="c-pagination__older">
+          
+          <a href="https://snorfalorpagus.net/blog/2017/08/08/adafruit-gps-with-a-pro-mini-3v3-8mhz/">Older</a>
+          
+        </div>
+      </div>
+    </nav>
+    
+
+
+    
+
+  </footer>
+</article>
+  </main>
+  
+
+  <footer class="l-footer">
+    
+
+
+    <p class="p-copyright">
+      
+        
+        &nbsp;&bull;&nbsp;
+        2020
+
+        
+          &nbsp;&bull;&nbsp;
+          <a href="https://snorfalorpagus.net/">snorfalorpagus dot net</a>
+        
+      
+    </p>
+  </footer>
+
+</body>
+</html>
+

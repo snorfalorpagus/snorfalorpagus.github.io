@@ -1,0 +1,341 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on snorfalorpagus dot net</title>
+    <link>https://snorfalorpagus.net/posts/</link>
+    <description>Recent content in Posts on snorfalorpagus dot net</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-gb</language>
+    <lastBuildDate>Sun, 10 May 2020 00:00:00 +0000</lastBuildDate><atom:link href="https://snorfalorpagus.net/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Threaded workers with AIOHTTP</title>
+      <link>https://snorfalorpagus.net/blog/2020/05/10/threaded-workers-with-aiohttp/</link>
+      <pubDate>Sun, 10 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2020/05/10/threaded-workers-with-aiohttp/</guid>
+      <description>The new async/await functionality in Python (available since 3.5) gives a more linear style to asynchronous applications, but requires the programmer to have an understanding of blocking/non-blocking actions. A single call to a blocking function in an otherwise asynchronously application can cause widespread problems. For example, in the case of a web server using AIOHTTP a call to a blocking function prevents any other requests being served.
+Sometimes calling slow, blocking functions is unavoidable.</description>
+    </item>
+    
+    <item>
+      <title>Multi-stage Docker builds for Python apps</title>
+      <link>https://snorfalorpagus.net/blog/2019/07/30/multi-stage-docker-builds-for-python-apps/</link>
+      <pubDate>Tue, 30 Jul 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2019/07/30/multi-stage-docker-builds-for-python-apps/</guid>
+      <description>Smaller docker images are quicker to transfer and deploy. What&amp;rsquo;s more, by only including what is absolutely required you can avoid security vulnerabilities in packages that aren&amp;rsquo;t even needed.
+There are many examples online for applications written in Go, which deploys as a single statically-linked binary. It&amp;rsquo;s not so obvious how to translate these examples to an application written in Python.
+Images based on alpine Linux are the smallest, but are not compatible with manylinux1 wheels due to the use of musl libc instead of glibc.</description>
+    </item>
+    
+    <item>
+      <title>The equals operation in Shapely</title>
+      <link>https://snorfalorpagus.net/blog/2018/07/08/the-equals-operation-in-shapely/</link>
+      <pubDate>Sun, 08 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2018/07/08/the-equals-operation-in-shapely/</guid>
+      <description>Shapely provides two ways of testing the equivalence of geometries:
+ Using the == operator, e.g. a == b Using the .equals method, e.g. a.equals(b)  The result of the two methods are not identical, although it may appear that way at first.
+For example, take two points:
+&amp;gt;&amp;gt;&amp;gt; A = Point([1, 2]) &amp;gt;&amp;gt;&amp;gt; B = Point([1, 2]) &amp;gt;&amp;gt;&amp;gt; A == B True &amp;gt;&amp;gt;&amp;gt; A.equals(B) True So far so good, but what about a more complex example?</description>
+    </item>
+    
+    <item>
+      <title>cfncluster &#43; anaconda</title>
+      <link>https://snorfalorpagus.net/blog/2017/12/18/cfncluster-anaconda/</link>
+      <pubDate>Mon, 18 Dec 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2017/12/18/cfncluster-anaconda/</guid>
+      <description>CfnCluster is a tool for deploying and managing high performance clusters on AWS. It uses AWS CloudFormation to allow you to quickly configure and deploy a cluster using EC2 instances. The cluster automatically scales the number of workers based on the number of jobs in the task queue, starting new instances as required (to a preconfigured maximum) and shutting down idle nodes. The entire cluster can be shutdown and restarted easily which is great for heavy but intermittent workloads.</description>
+    </item>
+    
+    <item>
+      <title>Adafruit GPS with a Pro Mini 3v3 8MHz</title>
+      <link>https://snorfalorpagus.net/blog/2017/08/08/adafruit-gps-with-a-pro-mini-3v3-8mhz/</link>
+      <pubDate>Tue, 08 Aug 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2017/08/08/adafruit-gps-with-a-pro-mini-3v3-8mhz/</guid>
+      <description>The default 9600 baud rate is a little too fast for the 8MHz clock speed of the Pro Mini 3v3 when using a software serial connection. This can result in invalid data being received from the GPS.
+NMEA messages include a basic checksum to ensure the message was received correctly. In the example below the checksum for the message is 47 in hexidecimal, preceeded by a * (the last 3 characters).</description>
+    </item>
+    
+    <item>
+      <title>XKCD &#43; Google Trends, 5 Years Later</title>
+      <link>https://snorfalorpagus.net/blog/2017/05/08/xkcd-google-trends-5-years-later/</link>
+      <pubDate>Mon, 08 May 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2017/05/08/xkcd-google-trends-5-years-later/</guid>
+      <description>Back in 2012 XKCD #1043 presented data from Google Trends, predicting that searches for &amp;ldquo;tumblr&amp;rdquo; would overtake &amp;ldquo;blog&amp;rdquo; on 12th October 2012:
+
+Fast-forward to present (2017) and we can see the prediction was a good, with &amp;ldquo;tumblr&amp;rdquo; overtaking &amp;ldquo;blog&amp;rdquo; sometime between October and November:
+https://trends.google.co.uk/trends/explore?date=all&amp;amp;q=blog,tumblr,wordpress,livejournal
+The data is available in CSV format and can be displayed easily using Pandas and Matplotlib. The XKCD extension for Matplotlib even gives it that XKCD-feel.</description>
+    </item>
+    
+    <item>
+      <title>Sorted Open Data (Part 2) with D3</title>
+      <link>https://snorfalorpagus.net/blog/2017/02/19/sorted-open-data-part-2-with-d3/</link>
+      <pubDate>Sun, 19 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2017/02/19/sorted-open-data-part-2-with-d3/</guid>
+      <description>This post is Part 2 of a series. See Part 1: Sorted Open Data with Shapely and SVG.
+D3 is a JavaScript library for manipulating documents based on data. Support for SVG in all modern browsers allows you to create beautiful, interactive maps all though manipulation of the DOM using D3.
+D3 has quite a steep learning curve and every time I use it I feel like I&amp;rsquo;m fumbling around in the dark.</description>
+    </item>
+    
+    <item>
+      <title>Sorted Open Data with Shapely and SVG</title>
+      <link>https://snorfalorpagus.net/blog/2017/02/18/sorted-open-data-with-shapely-and-svg/</link>
+      <pubDate>Sat, 18 Feb 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2017/02/18/sorted-open-data-with-shapely-and-svg/</guid>
+      <description>I recently came across the Sorted Cities project by Hans Hack. He uses building footprint data extracted from OpenStreetMap to create beautiful posters, showing all of the buildings in a city sorted by their area.
+As soon as I saw this, the hacker in me thought &amp;ldquo;how would I go about creating this myself?&amp;rdquo;
+Shapely has a fantastic feature that converts geometries into an SVG representation, which is used to display the geometry in Jupyter.</description>
+    </item>
+    
+    <item>
+      <title>Fun with emoji</title>
+      <link>https://snorfalorpagus.net/blog/2017/01/17/fun-with-emoji/</link>
+      <pubDate>Tue, 17 Jan 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2017/01/17/fun-with-emoji/</guid>
+      <description>Despite being somewhat late to the party 🎉, this week I&amp;rsquo;ve been having fun with emoji 😂. Emoji are just unicode characters, which means as well as being easy to send in text messages they can also turn up in places you might not expect.
+For example, emoji are correctly displayed in the macOS Terminal app. They&amp;rsquo;re also valid in filenames provided that the file system supports unicode (which all modern filesystems do).</description>
+    </item>
+    
+    <item>
+      <title>Compiling Python extensions for old glibc versions</title>
+      <link>https://snorfalorpagus.net/blog/2016/07/17/compiling-python-extensions-for-old-glibc-versions/</link>
+      <pubDate>Sun, 17 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2016/07/17/compiling-python-extensions-for-old-glibc-versions/</guid>
+      <description>I&amp;rsquo;m a big fan of the Anaconda Python distribution. It makes managing multiple Python environments on different operating systems easy (at least in theory).
+I recently came across an issue trying to import a Cython extension I&amp;rsquo;d built for Linux on a different machine. We&amp;rsquo;d be testing the module on Travis-CI for months without any issues so this came as a surprise. When I tried to import the module the following exception was raised:</description>
+    </item>
+    
+    <item>
+      <title>Masking NetCDF datasets using Rasterio</title>
+      <link>https://snorfalorpagus.net/blog/2016/07/15/masking-netcdf-datasets-using-rasterio/</link>
+      <pubDate>Fri, 15 Jul 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2016/07/15/masking-netcdf-datasets-using-rasterio/</guid>
+      <description>TODO
+This post brings a couple of ideas from previous posts together, namely downloading data using NetCDF and masking raster layers with vector data.
+The end result is the ability to query raster datasets using irregular shapes and only download the data you actually need.
+{% notebook notebooks/chess-netcdf.ipynb %}</description>
+    </item>
+    
+    <item>
+      <title>Building Python C extensions on macOS with conda</title>
+      <link>https://snorfalorpagus.net/blog/2016/06/27/building-python-c-extensions-on-macos-with-conda/</link>
+      <pubDate>Mon, 27 Jun 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2016/06/27/building-python-c-extensions-on-macos-with-conda/</guid>
+      <description>https://developer.apple.com/library/mac/documentation/DeveloperTools/Conceptual/DynamicLibraries/100-Articles/RunpathDependentLibraries.html
+export C_INCLUDE_PATH=/path/to/include For example, if you conda installation is at ~/miniconda3 your &amp;ldquo;snowflake&amp;rdquo; environment will be at ~/miniconda3/envs/snowflake, containing it&amp;rsquo;s own include and lib folders.
+export CFLAGS=&amp;quot;-Wl,-rpath,/path/to/lib&amp;quot; If you&amp;rsquo;re using the same build script for other operating systems (e.g. Linux) you can wrap these extra environment variables in an if-statement which detects the operating system.
+if [ `uname` == &amp;quot;Darwin&amp;quot; ]; then # this is executed on macOS only echo &amp;quot;I&#39;m running on a Mac.</description>
+    </item>
+    
+    <item>
+      <title>Pickling Cython classes</title>
+      <link>https://snorfalorpagus.net/blog/2016/04/16/pickling-cython-classes/</link>
+      <pubDate>Sat, 16 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2016/04/16/pickling-cython-classes/</guid>
+      <description>Automatic pickle support in Cython is still a pending feature. In order to support pickling of cdef classes you must implement the pickle protocol. This is done by implementing the __getstate__ and __setstate__ methods. Although the official documentation is quite clear, it lacks a simple example and also instruction on handling objects that can&amp;rsquo;t be directly pickled.
+A minimal example is given below for the Person class which stores a name (string) and age (integer).</description>
+    </item>
+    
+    <item>
+      <title>Do I Need An Umbrella Today?</title>
+      <link>https://snorfalorpagus.net/blog/2016/04/11/do-i-need-an-umbrella-today/</link>
+      <pubDate>Mon, 11 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2016/04/11/do-i-need-an-umbrella-today/</guid>
+      <description>A few years ago I came across Umbrella Today. The site had a simple function, providing a weather forecast with only one variable: is it going to rain today? Enter your zip code and you get a Yes-No answer to the question. The simplicity of this appealed to me. Although it was featured on LifeHacker in 2008 the site has since gone offline. Anyway, I don&amp;rsquo;t live in the USA and therefore didn&amp;rsquo;t have a zip code.</description>
+    </item>
+    
+    <item>
+      <title>Continuous Integration for Python on Windows with AppVeyor</title>
+      <link>https://snorfalorpagus.net/blog/2016/03/24/continuous-integration-for-python-on-windows-with-appveyor/</link>
+      <pubDate>Thu, 24 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2016/03/24/continuous-integration-for-python-on-windows-with-appveyor/</guid>
+      <description>https://en.wikipedia.org/wiki/Continuous_integration
+ AppVeyor - https://www.appveyor.com/ Windows! Python Pricing: free for open source projects Anaconda - easy to install Python and dependencies Example project: https://github.com/snorfalorpagus/appveyordemo Using &amp;ldquo;artifacts&amp;rdquo; - can be uploaded to anaconda.org or pypi.python.org https://blog.ionelmc.ro/2014/12/21/compiling-python-extensions-on-windows/  </description>
+    </item>
+    
+    <item>
+      <title>Splitting large polygons for faster intersections</title>
+      <link>https://snorfalorpagus.net/blog/2016/03/13/splitting-large-polygons-for-faster-intersections/</link>
+      <pubDate>Sun, 13 Mar 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2016/03/13/splitting-large-polygons-for-faster-intersections/</guid>
+      <description>Large polygons are a problem for geoprocessing operations. Intersections involving large polygons are slow because the entire geometry needs to be evaluated. In addition to this, spatial indexing doesn&amp;rsquo;t help (much) because the bounding box of the polygon is itself large.
+This is a common problem with flood extent data, which is exported from hydraulic models without much thought as to how it will be used. An example of this is the Risk of Flooding from Rivers and Sea (RoFRS) layer available from the Environment Agency (released under the OGL on EA Geostore).</description>
+    </item>
+    
+    <item>
+      <title>Accessing CEH Gridded Estimates of Areal Rainfall (GEAR) with Python</title>
+      <link>https://snorfalorpagus.net/blog/2016/02/04/accessing-ceh-gridded-estimates-of-areal-rainfall-gear-with-python/</link>
+      <pubDate>Thu, 04 Feb 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2016/02/04/accessing-ceh-gridded-estimates-of-areal-rainfall-gear-with-python/</guid>
+      <description>The Centre for Ecology &amp;amp; Hydrology (CEH) produce a dataset which provides an estimate of daily rainfall on a 1km grid for Great Britain and Northern Ireland from all the way back to 1890 onward to 2014.
+The data is hosted in NetCDF format hosted on an OPeNDAP server. At the time of writing only data to 2012 is available via OPenDAP.
+The script below demonstrates how to access this dataset from Python using the netCDF4 module.</description>
+    </item>
+    
+    <item>
+      <title>Speedup Fiona with LRU caching</title>
+      <link>https://snorfalorpagus.net/blog/2015/11/10/speedup-fiona-with-lru-caching/</link>
+      <pubDate>Tue, 10 Nov 2015 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2015/11/10/speedup-fiona-with-lru-caching/</guid>
+      <description>At some point you&amp;rsquo;re going to care about how long it takes your geoprocessing algorithm to run. While the Fiona and Shapely libraries make efforts to be as efficient as possible, a lot will depend on the algorithms you use them in.
+I&amp;rsquo;ve written before about how spatial indexing can speed up intersection and nearest neighbour queries. At the end of the previous article I mentioned a trade-off between speed and memory usage when the same features are requested more than once.</description>
+    </item>
+    
+    <item>
+      <title>Homebrew Oxontime RTI display with Raspberry Pi</title>
+      <link>https://snorfalorpagus.net/blog/2015/04/18/homebrew-oxontime-rti-display-with-raspberry-pi/</link>
+      <pubDate>Sat, 18 Apr 2015 00:16:43 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2015/04/18/homebrew-oxontime-rti-display-with-raspberry-pi/</guid>
+      <description>Update: As of 2016-03-31 the Oxontime service has changed provider and the API is no longer functional. Presumably a new API will be made available at some point. This post remains for posterity.
+The Oxontime Real Time Information (RTI) system provides real time predictions for bus departures in Oxfordshire, which are displayed on screens at many bus stops. The data is also available via an API. I thought it would be fun to use an Adafruit 16x2 LCD display and a Raspberry Pi to make my own personal display (photo below).</description>
+    </item>
+    
+    <item>
+      <title>Find ArcMap document version with Python</title>
+      <link>https://snorfalorpagus.net/blog/2015/04/15/find-arcmap-document-version-with-python/</link>
+      <pubDate>Wed, 15 Apr 2015 21:53:58 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2015/04/15/find-arcmap-document-version-with-python/</guid>
+      <description>This post shows how to find the version number of an ArcGIS map document (.mxd) programmatically using Python. It seems that arcpy does not provide a method to do this itself.
+ArcGIS map documents are actually Microsoft OLE2 files (also called Structured Storage, Compound File Binary Format or Compound Document File Format). There is a Python module called oletools which can read this format, which is available on PyPI.
+To install oletools using pip (from a command prompt):</description>
+    </item>
+    
+    <item>
+      <title>Masking Rasterio Layers with Vector Features</title>
+      <link>https://snorfalorpagus.net/blog/2014/11/09/masking-rasterio-layers-with-vector-features/</link>
+      <pubDate>Sun, 09 Nov 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/11/09/masking-rasterio-layers-with-vector-features/</guid>
+      <description>This post shows how to extract data from a raster only where it intersects a vector feature using Rasterio. Fiona is used to read the vector data, and Shapely is used only as a convenience to calculate the feature&amp;rsquo;s bounding box.
+GDAL provides a function to &amp;ldquo;burn&amp;rdquo; vector shapes into rasters (i.e., to rasterize the geometries). This functionality is accessed from Rasterio using the rasterize function. This tool can be used to create a raster mask for another raster layer.</description>
+    </item>
+    
+    <item>
+      <title>Embedding a Leaflet map in a Qt application</title>
+      <link>https://snorfalorpagus.net/blog/2014/09/13/embedding-a-leaflet-map-in-a-qt-application/</link>
+      <pubDate>Sat, 13 Sep 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/09/13/embedding-a-leaflet-map-in-a-qt-application/</guid>
+      <description>Embedding a map in a Qt application using Leaflet is surprisingly easy. The QtWebKit.QWebView object can be used to create a browser window within a Qt dialog. Within this browser window you can create an interactive map using Leaflet just as you would for any other browser. Communication between Qt and the Leaflet map is also possible, allowing you to control the map from the main application, or extract information from Leaflet.</description>
+    </item>
+    
+    <item>
+      <title>Converting British National Grid and Irish Grid References: A Practical Example</title>
+      <link>https://snorfalorpagus.net/blog/2014/08/12/converting-british-national-grid-and-irish-grid-references-a-practical-example/</link>
+      <pubDate>Tue, 12 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/08/12/converting-british-national-grid-and-irish-grid-references-a-practical-example/</guid>
+      <description>The Environment Agency recently released their database of River Habitat Surveys (RHS) as open data, available from the GeoStore under the Open Government Licence. RHS is described as the &amp;lsquo;standard for collecting data on the physical character and quality of river habitats across the UK&amp;rsquo;. The data comes in the from of an Open Office XML spreadsheet, and includes survey data collected in England, Wales, Scotland and Northern Ireland from 1994 - present.</description>
+    </item>
+    
+    <item>
+      <title>Reduce the file size of PDFs with Ghostscript</title>
+      <link>https://snorfalorpagus.net/blog/2014/08/09/reduce-the-file-size-of-pdfs-with-ghostscript/</link>
+      <pubDate>Sat, 09 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/08/09/reduce-the-file-size-of-pdfs-with-ghostscript/</guid>
+      <description>Portable Document Format (PDF) is a common format used for publishing maps. PDFs can contain both raster and vector data and can be read by a large number of freely available viewer applications, such as Adobe Reader and Okular.
+Adobe Reader Pro can be used to optimize the size of PDF files, by selecting File &amp;gt; Save As... &amp;gt; Optimized PDF. However, Adobe Reader Pro isn&amp;rsquo;t free, and isn&amp;rsquo;t easily automated.</description>
+    </item>
+    
+    <item>
+      <title>Validating user input in PyQt4 using QValidator</title>
+      <link>https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-using-qvalidator/</link>
+      <pubDate>Sat, 09 Aug 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/08/09/validating-user-input-in-pyqt4-using-qvalidator/</guid>
+      <description>This post demonstrates how to use the QValidator class to validate text input in PyQt4. Text validation can help the user to understand what information is required when entering data into a form. For example, preventing a user from entering letters into a text field that expects a number makes it clearer what is needed. In addition to this the colour of the text field can be changed to provide the user with a visual feedback, e.</description>
+    </item>
+    
+    <item>
+      <title>Merging vector layers with ogr2ogr</title>
+      <link>https://snorfalorpagus.net/blog/2014/07/03/merging-vector-layers-with-ogr2ogr/</link>
+      <pubDate>Thu, 03 Jul 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/07/03/merging-vector-layers-with-ogr2ogr/</guid>
+      <description>In the example below we will merge a group of SQLite layers (first.sqlite, second.sqlite, third.sqlite, &amp;hellip;) into a single SQLite layer (topographicarea.sqlite).
+The first step is to create an empty layer with the correct schema (i.e., the same geometry type and fields).
+ogr2ogr -f SQLite -nln topographicarea ../topographicarea.sqlite first.sqlite -where 0 Next, we loop through each of the input layers and append each feature to the merged layer.
+for filename in *.</description>
+    </item>
+    
+    <item>
+      <title>Using Cartopy with Rasterio</title>
+      <link>https://snorfalorpagus.net/blog/2014/06/26/using-cartopy-with-rasterio/</link>
+      <pubDate>Thu, 26 Jun 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/06/26/using-cartopy-with-rasterio/</guid>
+      <description>This post demonstrates the basics of creating maps in Python using Cartopy with raster data read using Rasterio. Cartopy makes it easy to draw maps in matplotlib figures, using the Proj.4 library to handle any wacky projection you can throw at it, and the shapely Python module to work with vector data. Rasterio is a Python module for reading and writing raster data, built on the GDAL library.
+Cartopy is often used with the basic image reading function imread() from matplotlib, which can read a selection of common image formats with support from the Python Image Library (PIL), or the Iris module for formats commonly used in meteorology and climatology.</description>
+    </item>
+    
+    <item>
+      <title>Using Rtree spatial indexing with OGR</title>
+      <link>https://snorfalorpagus.net/blog/2014/05/12/using-rtree-spatial-indexing-with-ogr/</link>
+      <pubDate>Mon, 12 May 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/05/12/using-rtree-spatial-indexing-with-ogr/</guid>
+      <description>Spatial indexing can significantly reduce the time required to perform geoprocessing operations involving intersection. This includes intersections, unions, dissolves, and nearest neighbour analysis.
+Spatial indexing speeds up queries by reducing the number of features that need to be evaluated with computationally expensive geometic calculations. It does this by performing a simplified query using the bounding boxes (a.k.a., envelopes) of the features only. A bounding box can always be described by four parameters &amp;ndash; the x,y coordinates of the lower left and upper right corners &amp;ndash; and as such these first pass queries can be done very efficiently using regular database indexing methods.</description>
+    </item>
+    
+    <item>
+      <title>Symbology of vector layers in QGIS Python Plugins</title>
+      <link>https://snorfalorpagus.net/blog/2014/03/04/symbology-of-vector-layers-in-qgis-python-plugins/</link>
+      <pubDate>Tue, 04 Mar 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/03/04/symbology-of-vector-layers-in-qgis-python-plugins/</guid>
+      <description>The symbology of a layer describes how the layer&amp;rsquo;s data should be displayed on the map canvas. A layers symbology, or style, is composed of two things: a symbol (or multiple symbols) and a renderer.
+The layer&amp;rsquo;s renderer decides which features should be drawn using which symbols. The renderer can be a simple thing, giving all features the same symbol, or something more complex, giving each feature a different symbol depending on its attributes.</description>
+    </item>
+    
+    <item>
+      <title>Embedding PNGs in SVG markers in QGIS</title>
+      <link>https://snorfalorpagus.net/blog/2014/02/27/embedding-pngs-in-svg-markers-in-qgis/</link>
+      <pubDate>Thu, 27 Feb 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/02/27/embedding-pngs-in-svg-markers-in-qgis/</guid>
+      <description>QGIS has support for using Scaleable Vector Graphics (SVGs) as marker icons. This gives you a lot of control over how markers appear on your maps. But what if the marker you want to use doesn&amp;rsquo;t have a vector version available? Fear not! Other image formats, including raster formats such as PNG and JPG, can be embedded in an SVG.
+To do this is actually quite simple using the Inkscape vector graphics editor.</description>
+    </item>
+    
+    <item>
+      <title>Writing unit tests for QGIS Python plugins</title>
+      <link>https://snorfalorpagus.net/blog/2014/01/04/writing-unit-tests-for-qgis-python-plugins/</link>
+      <pubDate>Sat, 04 Jan 2014 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2014/01/04/writing-unit-tests-for-qgis-python-plugins/</guid>
+      <description>Testing your code is a good idea. Testing can help you find bugs early and spot regressions where you didn&amp;rsquo;t expect them. The tests themselves can form a kind of &amp;ldquo;living&amp;rdquo; documentation, and can even drive the design of your project. A unit test is a test written for a single module of code; it might check to see that a drop down menu has been populated correctly, or that a layer was added to the map canvas once an algorithm has finished processing.</description>
+    </item>
+    
+    <item>
+      <title>Multithreading in QGIS Python plugins</title>
+      <link>https://snorfalorpagus.net/blog/2013/12/07/multithreading-in-qgis-python-plugins/</link>
+      <pubDate>Sat, 07 Dec 2013 00:00:00 +0000</pubDate>
+      
+      <guid>https://snorfalorpagus.net/blog/2013/12/07/multithreading-in-qgis-python-plugins/</guid>
+      <description>The Python bindings in QGIS allow plugins to be written in Python. Writing a plugin for QGIS involves two things: writing the geoprocessing algorithm itself, and writing a graphical user interface (GUI) that the user can interact with without writing any code.
+Using a GIS often requires patience; geoprocessing tasks can take a long time to complete when working with large datasets. If you run a time consuming task and the UI in the same thread, the UI will become unresponsive; it will appear to the user as if the application has crashed, even if it is still working on the task.</description>
+    </item>
+    
+  </channel>
+</rss>

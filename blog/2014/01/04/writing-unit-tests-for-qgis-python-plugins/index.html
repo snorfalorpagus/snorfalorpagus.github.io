@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  
+  <title>Writing unit tests for QGIS Python plugins</title>
+  <meta property="og:title" content="Writing unit tests for QGIS Python plugins" />
+  <meta name="twitter:title" content="Writing unit tests for QGIS Python plugins" />
+  
+
+  
+
+  <meta name="author" content=""/>
+  <meta property="og:site_name" content="snorfalorpagus dot net" />
+  <meta property="og:url" content="https://snorfalorpagus.net/blog/2014/01/04/writing-unit-tests-for-qgis-python-plugins/" />
+
+  
+  <meta name="twitter:card" content="summary" />
+
+  
+
+  
+  <meta property="og:type" content="article" />
+  
+  
+  
+  <meta name="generator" content="Hugo 0.82.0" />
+  
+  
+
+  <link rel="stylesheet" href="https://snorfalorpagus.net/css/style.css" />
+  
+  
+  
+  <script type="text/javascript" src="https://snorfalorpagus.net/js/bundle.js"></script>
+  
+
+</head>
+
+<body>
+  <a href="#main" class="skip-link p-screen-reader-text">Skip to content</a>
+  <svg xmlns="http://www.w3.org/2000/svg" style="display: none;" aria-hidden="true"> <symbol id="icon-500px" viewBox="0 0 16 16"><g> <path d="M3.953 10.512a5.24 5.24 0 0 0 6.996 3.141c.625-.262 1.184-.641 1.666-1.122s.859-1.041 1.122-1.666c.272-.647.412-1.331.412-2.037s-.137-1.394-.412-2.037c-.262-.625-.641-1.184-1.122-1.666s-1.041-.859-1.666-1.122a5.226 5.226 0 0 0-2.037-.413c-.716 0-1.431.144-2.066.413-.509.216-1.372.769-1.875 1.291l-.003.003V.984h7.241c.262-.003.262-.372.262-.491 0-.122 0-.487-.266-.491H4.377a.343.343 0 0 0-.344.341v6.066c0 .197.244.338.472.384.444.094.544-.047.653-.197l.016-.019c.166-.247.681-.766.688-.772a4.262 4.262 0 0 1 3.037-1.25c1.147 0 2.222.444 3.028 1.25a4.245 4.245 0 0 1 1.256 3.019 4.236 4.236 0 0 1-1.25 3.019 4.336 4.336 0 0 1-3.047 1.25 4.136 4.136 0 0 1-2.159-.597l.003-3.688c0-.491.213-1.028.572-1.431a2.09 2.09 0 0 1 1.588-.716c.594 0 1.15.225 1.566.634.409.406.637.95.637 1.528a2.179 2.179 0 0 1-2.206 2.197c-.238 0-.672-.106-.691-.109-.25-.075-.356.272-.391.387-.134.441.069.528.109.541.397.125.659.147 1.003.147a3.173 3.173 0 0 0 3.169-3.169c0-1.734-1.422-3.144-3.166-3.144-.856 0-1.659.328-2.263.919-.575.566-.903 1.319-.903 2.069v.019c-.003.094-.003 2.306-.006 3.031l-.003-.003c-.328-.363-.653-.919-.869-1.488-.084-.222-.275-.184-.534-.103-.125.034-.469.141-.391.394zm3.722-.865c0 .106.097.2.156.253l.019.019c.1.097.194.147.281.147a.181.181 0 0 0 .131-.05c.044-.041.537-.544.588-.591l.553.55c.05.056.106.088.172.088.088 0 .184-.053.284-.156.238-.244.119-.375.063-.438l-.559-.559.584-.588c.128-.137.016-.284-.097-.397-.162-.162-.322-.206-.422-.112l-.581.581-.588-.588a.16.16 0 0 0-.113-.047c-.078 0-.172.053-.275.156-.181.181-.219.306-.125.406l.588.584-.584.584c-.053.05-.078.103-.075.156zm1.278-7.931c-.938 0-1.938.191-2.669.506a.207.207 0 0 0-.134.181.753.753 0 0 0 .069.337c.047.116.166.425.4.334a6.689 6.689 0 0 1 2.334-.444 6.35 6.35 0 0 1 2.469.497c.622.263 1.206.644 1.844 1.194a.22.22 0 0 0 .147.059c.125 0 .244-.122.347-.237.169-.191.287-.35.119-.509a6.858 6.858 0 0 0-2.1-1.356 7.326 7.326 0 0 0-2.825-.563zM14.006 13.3c-.113-.113-.209-.178-.294-.203s-.162-.006-.222.053l-.056.056a6.32 6.32 0 0 1-6.938 1.356 6.336 6.336 0 0 1-2.013-1.356 6.046 6.046 0 0 1-1.356-2.012c-.288-.713-.381-1.247-.413-1.422-.003-.016-.006-.028-.006-.037-.041-.206-.231-.222-.503-.178-.112.019-.459.072-.428.319v.006a7.261 7.261 0 0 0 2.04 3.994 7.266 7.266 0 0 0 10.288 0l.059-.059c.069-.084.134-.225-.159-.516z"/> </g></symbol> <symbol id="icon-codepen" viewBox="0 0 16 16"><g> <path d="M14.777 5.751l-7-4.667a.5.5 0 0 0-.555 0l-7 4.667a.501.501 0 0 0-.223.416v4.667c0 .167.084.323.223.416l7 4.667a.5.5 0 0 0 .554 0l7-4.667a.501.501 0 0 0 .223-.416V6.167a.501.501 0 0 0-.223-.416zM7.5 10.232L4.901 8.5 7.5 6.768 10.099 8.5 7.5 10.232zM8 5.899V2.434l5.599 3.732L11 7.898l-3-2zm-1 0l-3 2-2.599-1.732L7 2.435V5.9zM3.099 8.5L1 9.899V7.101L3.099 8.5zM4 9.101l3 2v3.465l-5.599-3.732L4 9.102zm4 2l3-2 2.599 1.732L8 14.565V11.1zM11.901 8.5L14 7.101v2.798L11.901 8.5z"/> </g></symbol> <symbol id="icon-dribbble" viewBox="0 0 16 16"><g> <path d="M8 16c-4.412 0-8-3.588-8-8s3.587-8 8-8c4.412 0 8 3.587 8 8s-3.588 8-8 8zm6.747-6.906c-.234-.075-2.116-.634-4.256-.291a29.7 29.7 0 0 1 1.328 4.872 6.845 6.845 0 0 0 2.928-4.581zM10.669 14.3c-.103-.6-.497-2.688-1.456-5.181-.016.006-.031.009-.044.016-3.856 1.344-5.241 4.016-5.362 4.266a6.807 6.807 0 0 0 6.863.9zm-7.747-1.722c.156-.266 2.031-3.369 5.553-4.509a7.04 7.04 0 0 1 .269-.081 24.04 24.04 0 0 0-.553-1.159c-3.409 1.022-6.722.978-7.022.975-.003.069-.003.138-.003.209 0 1.753.666 3.356 1.756 4.566zM1.313 6.609c.306.003 3.122.016 6.319-.831a43.092 43.092 0 0 0-2.534-3.953 6.854 6.854 0 0 0-3.784 4.784zM6.4 1.366a36.612 36.612 0 0 1 2.55 4c2.431-.909 3.459-2.294 3.581-2.469A6.799 6.799 0 0 0 6.4 1.366zm6.891 2.325c-.144.194-1.291 1.663-3.816 2.694.159.325.313.656.453.991.05.119.1.234.147.353 2.275-.284 4.534.172 4.759.219a6.816 6.816 0 0 0-1.544-4.256z"/> </g></symbol> <symbol id="icon-facebook" viewBox="0 0 16 16"><g> <path d="M9.5 3H12V0H9.5C7.57 0 6 1.57 6 3.5V5H4v3h2v8h3V8h2.5l.5-3H9V3.5c0-.271.229-.5.5-.5z"/> </g></symbol> <symbol id="icon-feed" viewBox="0 0 16 16"><g> <path d="M2.13 11.733c-1.175 0-2.13.958-2.13 2.126 0 1.174.955 2.122 2.13 2.122a2.126 2.126 0 0 0 2.133-2.122 2.133 2.133 0 0 0-2.133-2.126zM.002 5.436v3.067c1.997 0 3.874.781 5.288 2.196a7.45 7.45 0 0 1 2.192 5.302h3.08c0-5.825-4.739-10.564-10.56-10.564zM.006 0v3.068C7.128 3.068 12.924 8.87 12.924 16H16C16 7.18 8.824 0 .006 0z"/> </g></symbol> <symbol id="icon-flickr" viewBox="0 0 16 16"><g> <path d="M0 8.5a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0zm9 0a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/> </g></symbol> <symbol id="icon-github" viewBox="0 0 16 16"><g> <path d="M8 .198a8 8 0 0 0-2.529 15.591c.4.074.547-.174.547-.385 0-.191-.008-.821-.011-1.489-2.226.484-2.695-.944-2.695-.944-.364-.925-.888-1.171-.888-1.171-.726-.497.055-.486.055-.486.803.056 1.226.824 1.226.824.714 1.223 1.872.869 2.328.665.072-.517.279-.87.508-1.07-1.777-.202-3.645-.888-3.645-3.954 0-.873.313-1.587.824-2.147-.083-.202-.357-1.015.077-2.117 0 0 .672-.215 2.201.82A7.672 7.672 0 0 1 8 4.066c.68.003 1.365.092 2.004.269 1.527-1.035 2.198-.82 2.198-.82.435 1.102.162 1.916.079 2.117.513.56.823 1.274.823 2.147 0 3.073-1.872 3.749-3.653 3.947.287.248.543.735.543 1.481 0 1.07-.009 1.932-.009 2.195 0 .213.144.462.55.384A8 8 0 0 0 8.001.196z"/> </g></symbol> <symbol id="icon-gitlab" viewBox="0 0 28 28"><g> <path d="M1.625 11.031L14 26.89.437 17.046a1.092 1.092 0 0 1-.391-1.203l1.578-4.813zm7.219 0h10.313L14.001 26.89zM5.75 1.469l3.094 9.562H1.625l3.094-9.562a.548.548 0 0 1 1.031 0zm20.625 9.562l1.578 4.813a1.09 1.09 0 0 1-.391 1.203l-13.563 9.844 12.375-15.859zm0 0h-7.219l3.094-9.562a.548.548 0 0 1 1.031 0z"/> </g></symbol> <symbol id="icon-google-plus" viewBox="0 0 16 16"><g> <path d="M5.091 7.147v1.747h2.888c-.116.75-.872 2.197-2.888 2.197-1.737 0-3.156-1.441-3.156-3.216s1.419-3.216 3.156-3.216c.991 0 1.65.422 2.028.784L8.5 4.112c-.888-.828-2.037-1.331-3.409-1.331C2.275 2.784 0 5.059 0 7.875s2.275 5.091 5.091 5.091c2.937 0 4.888-2.066 4.888-4.975 0-.334-.037-.591-.081-.844H5.092zM16 7h-1.5V5.5H13V7h-1.5v1.5H13V10h1.5V8.5H16z"/> </g></symbol> <symbol id="icon-instagram" viewBox="0 0 22 22"><g> <path d="M15.445 0H6.554A6.559 6.559 0 0 0 0 6.554v8.891A6.559 6.559 0 0 0 6.554 22h8.891a6.56 6.56 0 0 0 6.554-6.555V6.554A6.557 6.557 0 0 0 15.445 0zm4.342 15.445a4.343 4.343 0 0 1-4.342 4.342H6.554a4.341 4.341 0 0 1-4.341-4.342V6.554a4.34 4.34 0 0 1 4.341-4.341h8.891a4.342 4.342 0 0 1 4.341 4.341l.001 8.891z"/> <path d="M11 5.312A5.693 5.693 0 0 0 5.312 11 5.694 5.694 0 0 0 11 16.688 5.694 5.694 0 0 0 16.688 11 5.693 5.693 0 0 0 11 5.312zm0 9.163a3.475 3.475 0 1 1-.001-6.95 3.475 3.475 0 0 1 .001 6.95zm5.7-10.484a1.363 1.363 0 1 1-1.364 1.364c0-.752.51-1.364 1.364-1.364z"/> </g></symbol> <symbol id="icon-linkedin" viewBox="0 0 16 16"><g> <path d="M6 6h2.767v1.418h.04C9.192 6.727 10.134 6 11.539 6 14.46 6 15 7.818 15 10.183V15h-2.885v-4.27c0-1.018-.021-2.329-1.5-2.329-1.502 0-1.732 1.109-1.732 2.255V15H6V6zM1 6h3v9H1V6zM4 3.5a1.5 1.5 0 1 1-3.001-.001A1.5 1.5 0 0 1 4 3.5z"/> </g></symbol> <symbol id="icon-mail" viewBox="0 0 22 18"><g> <path fill="#000" d="M0 17.225V.776h22v16.447H0v.002zm3.011-1.815h15.978l-5.111-5.115L11 13.179l-2.877-2.883-5.112 5.114zm-1.216-1.275l5.077-5.09L1.795 3.98v10.155zm13.332-5.09l5.079 5.09V3.979l-5.079 5.066zm-4.126 1.588l8.022-8.027-16.045-.001 8.023 8.028z"/> </g></symbol> <symbol id="icon-medium" viewBox="0 0 24 24"><g> <path d="M22.085 4.733L24 2.901V2.5h-6.634l-4.728 11.768L7.259 2.5H.303v.401L2.54 5.594c.218.199.332.49.303.783V16.96c.069.381-.055.773-.323 1.05L0 21.064v.396h7.145v-.401l-2.52-3.049a1.244 1.244 0 0 1-.347-1.05V7.806l6.272 13.659h.729l5.393-13.659v10.881c0 .287 0 .346-.188.534l-1.94 1.877v.402h9.412v-.401l-1.87-1.831a.556.556 0 0 1-.214-.534V5.267a.554.554 0 0 1 .213-.534z"/> </g></symbol> <symbol id="icon-npm" viewBox="0 0 16 16"><g> <path d="M0 0v16h16V0H0zm13 13h-2V5H8v8H3V3h10v10z"/> </g></symbol> <symbol id="icon-pinterest" viewBox="0 0 16 16"><g> <path d="M8 1.069a6.93 6.93 0 0 0-2.525 13.384c-.059-.547-.116-1.391.025-1.988.125-.541.813-3.444.813-3.444s-.206-.416-.206-1.028c0-.963.559-1.684 1.253-1.684.591 0 .878.444.878.975 0 .594-.378 1.484-.575 2.306-.166.691.344 1.253 1.025 1.253 1.231 0 2.178-1.3 2.178-3.175 0-1.659-1.194-2.819-2.894-2.819-1.972 0-3.128 1.478-3.128 3.009 0 .597.228 1.234.516 1.581.056.069.066.128.047.2a95.89 95.89 0 0 1-.194.787c-.031.128-.1.153-.231.094-.866-.403-1.406-1.669-1.406-2.684 0-2.188 1.587-4.194 4.578-4.194 2.403 0 4.272 1.712 4.272 4.003 0 2.388-1.506 4.313-3.597 4.313-.703 0-1.362-.366-1.588-.797 0 0-.347 1.322-.431 1.647-.156.603-.578 1.356-.862 1.816a6.93 6.93 0 0 0 8.984-6.622 6.931 6.931 0 0 0-6.931-6.934z"/> </g></symbol> <symbol id="icon-search" viewBox="0 0 16 16"><g> <path d="M15.504 13.616l-3.79-3.223c-.392-.353-.811-.514-1.149-.499a6 6 0 1 0-.672.672c-.016.338.146.757.499 1.149l3.223 3.79c.552.613 1.453.665 2.003.115s.498-1.452-.115-2.003zM6 10a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/> </g></symbol> <symbol id="icon-strava" viewBox="0 0 24 24"><g> <path d="M15.387 17.944l-2.089-4.116h-3.065L15.387 24l5.15-10.172h-3.066m-7.008-5.599l2.836 5.598h4.172L10.463 0l-7 13.828h4.169"/> </g></symbol> <symbol id="icon-tumblr" viewBox="0 0 16 16"><g> <path d="M9.001 7v3.659c0 .928-.012 1.463.086 1.727.098.262.342.534.609.691.354.212.758.318 1.214.318.81 0 1.289-.107 2.09-.633v2.405a9.089 9.089 0 0 1-1.833.639A7.93 7.93 0 0 1 9.369 16a4.9 4.9 0 0 1-1.725-.276 4.195 4.195 0 0 1-1.438-.79c-.398-.343-.672-.706-.826-1.091s-.23-.944-.23-1.676V6.556H3.003V4.29c.628-.204 1.331-.497 1.778-.877a4.386 4.386 0 0 0 1.08-1.374C6.133 1.505 6.32.825 6.422 0h2.579v4H13v3H9.001z"/> </g></symbol> <symbol id="icon-twitter" viewBox="0 0 16 16"><g> <path d="M16 3.538a6.461 6.461 0 0 1-1.884.516 3.301 3.301 0 0 0 1.444-1.816 6.607 6.607 0 0 1-2.084.797 3.28 3.28 0 0 0-2.397-1.034 3.28 3.28 0 0 0-3.197 4.028 9.321 9.321 0 0 1-6.766-3.431 3.284 3.284 0 0 0 1.015 4.381A3.301 3.301 0 0 1 .643 6.57v.041A3.283 3.283 0 0 0 3.277 9.83a3.291 3.291 0 0 1-1.485.057 3.293 3.293 0 0 0 3.066 2.281 6.586 6.586 0 0 1-4.862 1.359 9.286 9.286 0 0 0 5.034 1.475c6.037 0 9.341-5.003 9.341-9.341 0-.144-.003-.284-.009-.425a6.59 6.59 0 0 0 1.637-1.697z"/> </g></symbol> <symbol id="icon-vimeo" viewBox="0 0 16 16"><g> <path d="M15.994 4.281c-.072 1.556-1.159 3.691-3.263 6.397-2.175 2.825-4.016 4.241-5.522 4.241-.931 0-1.722-.859-2.366-2.581-.431-1.578-.859-3.156-1.291-4.734-.478-1.722-.991-2.581-1.541-2.581-.119 0-.538.253-1.256.753l-.753-.969c.791-.694 1.569-1.388 2.334-2.081 1.053-.909 1.844-1.387 2.372-1.438 1.244-.119 2.013.731 2.3 2.553.309 1.966.525 3.188.647 3.666.359 1.631.753 2.447 1.184 2.447.334 0 .838-.528 1.509-1.588.669-1.056 1.028-1.862 1.078-2.416.097-.912-.262-1.372-1.078-1.372a2.98 2.98 0 0 0-1.184.263c.787-2.575 2.287-3.825 4.506-3.753 1.641.044 2.416 1.109 2.322 3.194z"/> </g></symbol> <symbol id="icon-wordpress" viewBox="0 0 16 16"><g> <path d="M2 8c0 2.313 1.38 4.312 3.382 5.259L2.52 5.622A5.693 5.693 0 0 0 2 8zm10.05-.295c0-.722-.266-1.222-.495-1.612-.304-.482-.589-.889-.589-1.371 0-.537.418-1.037 1.008-1.037.027 0 .052.003.078.005A6.064 6.064 0 0 0 8 2.156 6.036 6.036 0 0 0 2.987 4.79c.141.004.274.007.386.007.627 0 1.599-.074 1.599-.074.323-.018.361.444.038.482 0 0-.325.037-.687.055l2.185 6.33 1.313-3.835-.935-2.495a12.304 12.304 0 0 1-.629-.055c-.323-.019-.285-.5.038-.482 0 0 .991.074 1.58.074.627 0 1.599-.074 1.599-.074.323-.018.362.444.038.482 0 0-.326.037-.687.055l2.168 6.282.599-1.947c.259-.809.457-1.389.457-1.889zm-3.945.806l-1.8 5.095a6.148 6.148 0 0 0 3.687-.093.52.52 0 0 1-.043-.081L8.105 8.511zm5.16-3.315c.026.186.04.386.04.601 0 .593-.114 1.259-.456 2.093l-1.833 5.16c1.784-1.013 2.983-2.895 2.983-5.051a5.697 5.697 0 0 0-.735-2.803zM8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0zm0 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14z"/> </g></symbol> <symbol id="icon-youtube" viewBox="0 0 16 16"><g> <path d="M15.841 4.8s-.156-1.103-.637-1.587c-.609-.637-1.291-.641-1.603-.678-2.237-.163-5.597-.163-5.597-.163h-.006s-3.359 0-5.597.163c-.313.038-.994.041-1.603.678C.317 3.697.164 4.8.164 4.8S.005 6.094.005 7.391v1.213c0 1.294.159 2.591.159 2.591s.156 1.103.634 1.588c.609.637 1.409.616 1.766.684 1.281.122 5.441.159 5.441.159s3.363-.006 5.6-.166c.313-.037.994-.041 1.603-.678.481-.484.637-1.588.637-1.588s.159-1.294.159-2.591V7.39c-.003-1.294-.162-2.591-.162-2.591zm-9.494 5.275V5.578l4.322 2.256-4.322 2.241z"/> </g></symbol></svg>
+  <header class="l-header">
+    
+    <p class="c-title p-title"><a href="https://snorfalorpagus.net/" class="p-title__link">snorfalorpagus dot net</a></p>
+    
+    
+  </header>
+
+  <main id="main" class="l-main">
+
+
+<article class="p-article">
+  <header>
+    <h1>Writing unit tests for QGIS Python plugins</h1>
+    <div>
+      
+        <div class="c-time">
+          Posted on
+<time datetime="2014-01-04T00:00:00Z">
+  Jan 4, 2014
+</time>
+
+        </div>
+      
+      
+    </div>
+  </header>
+  
+  <section id="js-article" class="p-article__body">
+    <p>Testing your code is a good idea. Testing can help you find bugs early and spot regressions where you didn&rsquo;t expect them. The tests themselves can form a kind of &ldquo;living&rdquo; documentation, and can even <a href="http://en.wikipedia.org/wiki/Test-driven_development">drive the design of your project</a>. A <a href="http://en.wikipedia.org/wiki/Unit_testing">unit test</a> is a test written for a single module of code; it might check to see that a drop down menu has been populated correctly, or that a layer was added to the map canvas once an algorithm has finished processing. By testing small parts of code in isolation you can quickly identify which components in a much larger system are failing when things start to go wrong. The Python Guide provides some <a href="http://docs.python-guide.org/en/latest/writing/tests/" title="Testing Your Code">useful guidance for writing unit tests</a>.</p>
+<p><strong>Update 2017-03-26:</strong> Capabilities for testing plugins in QGIS have improved greatly since this post was written. Instead, see <a href="http://gis.stackexchange.com/a/211042/12420" title="Best practice in writing automated tests for QGIS plugins">this answer on GIS.SE</a> and <a href="https://boundlessgeo.com/2016/07/qgis-continuous-integration-testing-environment-for-python-plugins/" title="QGIS Continuous Integration Testing Environment for Python Plugins ">this post by Boundless</a>.</p>
+<p>This post describes some of the specifics you need to know for writing unit tests for QGIS Python plugins. It assumes an existing understanding of <a href="http://www.qgis.org/en/docs/pyqgis_developer_cookbook/plugins.html" title="Developing Python Plugins for QGIS">writing plugins for QGIS using Python</a>.</p>
+<!-- more -->
+<h2 id="writing-tests-using-pythons-unittest-module">Writing tests using Python&rsquo;s unittest module</h2>
+<p>The Python standard library includes a module for writing unit tests called <code>unittest</code>. A test suite written for using <code>unittest</code> will look something like the code below.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> unittest
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">power_of_two</span>(n):
+    <span style="color:#66d9ef">return</span> n<span style="color:#f92672">**</span><span style="color:#ae81ff">2</span>
+
+<span style="color:#66d9ef">class</span> <span style="color:#a6e22e">TestPowerFunction</span>(unittest<span style="color:#f92672">.</span>TestCase):
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_power</span>(self):
+        self<span style="color:#f92672">.</span>assertEqual(power_of_two(<span style="color:#ae81ff">2</span>), <span style="color:#ae81ff">4</span>)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_negative</span>(self):
+        self<span style="color:#f92672">.</span>assertEqual(power_of_two(<span style="color:#f92672">-</span><span style="color:#ae81ff">3</span>), <span style="color:#ae81ff">9</span>)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">test_float</span>(self):
+        self<span style="color:#f92672">.</span>assertAlmostEqual(power_of_two(<span style="color:#ae81ff">1.3</span>), <span style="color:#ae81ff">1.69</span>, places<span style="color:#f92672">=</span><span style="color:#ae81ff">2</span>)
+
+<span style="color:#66d9ef">if</span> __name__ <span style="color:#f92672">==</span> <span style="color:#e6db74">&#39;__main__&#39;</span>:
+    unittest<span style="color:#f92672">.</span>main()</code></pre></div>
+<p>As this post only focuses on the specifics of writing unit tests for QGIS plugins, the reader is directed to the <a href="http://docs.python.org/2/library/unittest.html" title="Python unit testing framework">Python manual page for unittest</a> for more information.</p>
+<h2 id="using-pyqgis-with-unittest">Using PyQGIS with unittest</h2>
+<p>To use the <code>unittest</code> module for testing a QGIS plugin we need to load the <code>qgis</code> modules in a Python script outside of the main QGIS application. The <a href="http://www.qgis.org/en/docs/pyqgis_developer_cookbook/intro.html#python-applications" title="Using PyQGIS in custom application">PyQGIS cookbook</a> describes how to do this. The instructions are reiterated here as this step is one which <a href="http://gis.stackexchange.com/search?q=qgis+pythonpath+path" title="GIS.SE: qgis+pythonpath+path">new users frequently struggle with</a>. In this section and later I have assumed that on Linux QGIS is installed to <code>/usr/local</code>, and on Windows QGIS is installed using <a href="http://trac.osgeo.org/osgeo4w/" title="OSGeo For Windows">OSGeo4W</a> to <code>C:\OSGeo4W</code>.</p>
+<p>To import the <code>qgis</code> modules they need to be in your <code>PYTHONPATH</code> environment variable.</p>
+<p>Configuring <code>PYTHONPATH</code> on Linux:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">export PYTHONPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>PYTHONPATH<span style="color:#e6db74">}</span><span style="color:#e6db74">:/usr/local/share/qgis/python&#34;</span></code></pre></div>
+<p>Configuring <code>PYTHONPATH</code> on Windows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">set PYTHONPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%PYTHONPATH%;C:\OSGeo4W\apps\qgis\python&#34;</span></code></pre></div>
+<p>The <code>qgis</code> module depends on the QGIS shared libraries (<code>libqgis_core</code>, <code>libqgis_gui</code>, etc.).</p>
+<p>On Linux these need to be in your <code>LD_LIBRARY_PATH</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">export LD_LIBRARY_PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>LD_LIBRARY_PATH<span style="color:#e6db74">}</span><span style="color:#e6db74">:/usr/local/lib&#34;</span></code></pre></div>
+<p>On Windows these need to be in your <code>PATH</code>:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">set PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%PATH;C:\OSGeo4W\bin&#34;</span> <span style="color:#75715e"># OSGeo4W binaries</span>
+set PATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%PATH;C:\OSGeo4W\apps\qgis\bin&#34;</span> <span style="color:#75715e"># QGIS binaries</span></code></pre></div>
+<p>The <code>qgis</code> modules should be loaded before <code>PyQt4</code> modules, so that correct version of the SIP API is loaded. In the QGIS Python console you don&rsquo;t have to worry about this, as the <code>qgis</code> modules have already been loaded for you, but when you&rsquo;re running a standalone application the order matters.</p>
+<p>Although it&rsquo;s possible to set environment variables using <code>os.environ</code> and the Python module search path using <code>sys.path</code>, it&rsquo;s better to leave this up to the user as it makes the code more portable.</p>
+<p>Once the modules have been imported you need to tell QGIS where it should look for it&rsquo;s resources (projections, data providers, etc.) using <code>QgsApplication.setPrefixPath()</code>, then initalise the data providers using <code>QgsApplication.initQgis()</code>. After doing this it&rsquo;s useful to check if any data providers are available; an empty list usually indicates an issue with the prefix specified. When you&rsquo;re finished using the QGIS libraries you should call <code>QgsApplication.exitQgis()</code> to clean up.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">from</span> qgis.core <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+<span style="color:#f92672">from</span> qgis.gui <span style="color:#f92672">import</span> <span style="color:#f92672">*</span>
+
+<span style="color:#f92672">from</span> PyQt4 <span style="color:#f92672">import</span> QtCore, QtGui, QtTest
+
+<span style="color:#f92672">import</span> unittest
+
+QgsApplication<span style="color:#f92672">.</span>setPrefixPath(<span style="color:#e6db74">&#34;/usr/local&#34;</span>, True)
+
+QgsApplication<span style="color:#f92672">.</span>initQgis()
+
+<span style="color:#66d9ef">if</span> len(QgsProviderRegistry<span style="color:#f92672">.</span>instance()<span style="color:#f92672">.</span>providerList()) <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span>:
+    <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">RuntimeError</span>(<span style="color:#e6db74">&#39;No data providers available.&#39;</span>)
+
+QgsApplication<span style="color:#f92672">.</span>exitQgis()</code></pre></div>
+<p>If you&rsquo;re running multiple tests using <a href="http://nose.readthedocs.org/en/latest/" title="nose extends unittest to make testing easier">nose</a> (discussed later) you should only call <code>exitQgis()</code> once, at the end of the tests. This can be done using the <code>atexit</code> module:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> atexit
+atexit<span style="color:#f92672">.</span>register(QgsApplication<span style="color:#f92672">.</span>exitQgis)</code></pre></div>
+<p>The debug messages that QGIS sometimes prints to the console can be disabled by setting the <code>QGIS_DEBUG</code> environment variable.</p>
+<p>On Linux:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">export QGIS_DEBUG<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-1&#34;</span></code></pre></div>
+<p>On Windows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">set QGIS_DEBUG<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;-1&#34;</span></code></pre></div>
+<h2 id="importing-plugins">Importing plugins</h2>
+<p>To import QGIS plugins the plugin directories need to be in your <code>PYTHONPATH</code>.</p>
+<p>Configuring <code>PYTHONPATH</code> on Linux:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># default QGIS plugins</span>
+export PYTHONPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>PYTHONPATH<span style="color:#e6db74">}</span><span style="color:#e6db74">:/usr/local/share/qgis/python/plugins&#34;</span>
+<span style="color:#75715e"># user installed plugins</span>
+export PYTHONPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>PYTHONPATH<span style="color:#e6db74">}</span><span style="color:#e6db74">:</span><span style="color:#e6db74">${</span>HOME<span style="color:#e6db74">}</span><span style="color:#e6db74">/.qgis2/python/plugins&#34;</span></code></pre></div>
+<p>Configuring <code>PYTHONPATH</code> on Windows:</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell"><span style="color:#75715e"># default QGIS plugins</span>
+set PYTHONPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%PYTHONPATH%;C:\OSGeo4W\apps\qgis\python\plugins&#34;</span>
+<span style="color:#75715e"># user installed plugins</span>
+set PYTHONPATH<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;%PYTHONPATH%;%USERPROFILE%\.qgis2\python\plugins&#34;</span></code></pre></div>
+<p>QGIS plugins depend on the <code>qgis.gui.QgsInterface</code> (often simply <code>iface</code>) to interact with the QGIS application. This object is a required argument of the <code>classFactory()</code> function which initalises plugins, but it isn&rsquo;t available in custom applications. Instead we create a &lsquo;dummy&rsquo; <code>iface</code> object which will accept any method call, which simply returns itself. We make an exception for the <code>layers</code> method, which should return a list of <code>QgsMapLayer</code>s.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">DummyInterface</span>(object):
+    <span style="color:#66d9ef">def</span> __getattr__(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">dummy</span>(<span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+            <span style="color:#66d9ef">return</span> self
+        <span style="color:#66d9ef">return</span> dummy
+    <span style="color:#66d9ef">def</span> __iter__(self):
+        <span style="color:#66d9ef">return</span> self
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">next</span>(self):
+        <span style="color:#66d9ef">raise</span> <span style="color:#a6e22e">StopIteration</span>
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">layers</span>(self):
+        <span style="color:#75715e"># simulate iface.legendInterface().layers()</span>
+        <span style="color:#66d9ef">return</span> QgsMapLayerRegistry<span style="color:#f92672">.</span>instance()<span style="color:#f92672">.</span>mapLayers()<span style="color:#f92672">.</span>values()
+iface <span style="color:#f92672">=</span> DummyInterface()</code></pre></div>
+<p>The default organization name and application name need to be configured so that <code>QSettings()</code> behaves as if it was running from within QGIS.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">QtCore<span style="color:#f92672">.</span>QCoreApplication<span style="color:#f92672">.</span>setOrganizationName(<span style="color:#e6db74">&#39;QGIS&#39;</span>)
+QtCore<span style="color:#f92672">.</span>QCoreApplication<span style="color:#f92672">.</span>setApplicationName(<span style="color:#e6db74">&#39;QGIS2&#39;</span>)</code></pre></div>
+<p>We are now ready to import the plugin.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> MyPlugin
+self<span style="color:#f92672">.</span>plugin <span style="color:#f92672">=</span> MyPlugin<span style="color:#f92672">.</span>classFactory(iface)
+self<span style="color:#f92672">.</span>ui <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>plugin<span style="color:#f92672">.</span>dlg<span style="color:#f92672">.</span>ui <span style="color:#75715e"># useful for shorthand later</span></code></pre></div>
+<p>Not all plugins will work in custom applications. Notably, the <code>processing</code> plugin will import and allow you to use the QGIS algorithms, but not the algorithms of any other providers (e.g. GRASS GIS or SAGA GIS) (see <a href="http://hub.qgis.org/issues/8955" title="Processing in a standalone QGIS app">feature request #8955</a>).</p>
+<h2 id="testing-geoprocessing-algorithms">Testing geoprocessing algorithms</h2>
+<p>This section describes a number of approaches used in testing the output from (or input to) a geoprocessing algorithm.</p>
+<p>When loading layers for use in tests it is useful to check if the layer <code>isValid()</code> before using it; this can highlight errors (such as an incorrect filename) early on. Failure to catch a broken layer can result in tests failing later on when the layer is accessed, which can produce confusing tracebacks and (on Windows at least) seems to crash the interpreter.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">layer <span style="color:#f92672">=</span> QgsVectorLayer(os<span style="color:#f92672">.</span>path<span style="color:#f92672">.</span>join(test_data_directory, <span style="color:#e6db74">&#39;input.shp&#39;</span>), <span style="color:#e6db74">&#39;input&#39;</span>, <span style="color:#e6db74">&#39;ogr&#39;</span>)
+self<span style="color:#f92672">.</span>assertTrue(layer<span style="color:#f92672">.</span>isValid(), <span style="color:#e6db74">&#39;Failed to load &#34;{}&#34;.&#39;</span><span style="color:#f92672">.</span>format(layer<span style="color:#f92672">.</span>source()))
+QgsMapLayerRegistry()<span style="color:#f92672">.</span>instance()<span style="color:#f92672">.</span>addMapLayer(layer)</code></pre></div>
+<p>To count the number of features in a layer, use <code>layer.dataProvider().featureCount()</code> in preference to <code>layer.featureCount()</code> in case the changes have not been propagated.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">self<span style="color:#f92672">.</span>assertEqual(layer<span style="color:#f92672">.</span>dataProvider()<span style="color:#f92672">.</span>featureCount(), <span style="color:#ae81ff">42</span>)</code></pre></div>
+<p>Sometimes counting the number of features is not enough. Here we calculate the total area of all the features in a layer.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">total_area <span style="color:#f92672">=</span> <span style="color:#ae81ff">0.0</span>
+<span style="color:#66d9ef">for</span> feature <span style="color:#f92672">in</span> layer<span style="color:#f92672">.</span>getFeatures():
+    total_area <span style="color:#f92672">+=</span> feature<span style="color:#f92672">.</span>geometry()<span style="color:#f92672">.</span>area()
+self<span style="color:#f92672">.</span>assertAlmostEqual(total_area, <span style="color:#ae81ff">42.000</span>, places<span style="color:#f92672">=</span><span style="color:#ae81ff">3</span>)</code></pre></div>
+<p>We can compare the exact geometry of a feature using WKT.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">features <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>getFeatures()
+feature <span style="color:#f92672">=</span> features<span style="color:#f92672">.</span>next()
+self<span style="color:#f92672">.</span>assertEqual(feature<span style="color:#f92672">.</span>geometry()<span style="color:#f92672">.</span>exportToWkt(), <span style="color:#e6db74">u</span><span style="color:#e6db74">&#39;POINT(194023 229400)&#39;</span>)</code></pre></div>
+<p>For large data sets it is more practical to compare a checksum of a layer to a known value, rather than checking each individual feature. We could run a checksum against the data as it is stored on disk, but checking all of the parts of a shapefile (.shp, .dbf, .shx, etc.) is a hassle and would not work for layers using the <code>memory</code> data provider. Instead we can use a short function which will calculate the checksum of a layer&rsquo;s projection, field names, and the geometry and attributes of each feature. This method has the added bonus that if at some point the test data is migrated from one format to another (e.g. shapefile to SQLite), the checksums will still match (provided that the underlying data is otherwise unmodified).</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#f92672">import</span> hashlib
+
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">checksum</span>(layer):
+    m <span style="color:#f92672">=</span> hashlib<span style="color:#f92672">.</span>md5()
+    m<span style="color:#f92672">.</span>update(layer<span style="color:#f92672">.</span>crs()<span style="color:#f92672">.</span>toProj4())
+    field_names <span style="color:#f92672">=</span> [f<span style="color:#f92672">.</span>name() <span style="color:#66d9ef">for</span> f <span style="color:#f92672">in</span> layer<span style="color:#f92672">.</span>dataProvider()<span style="color:#f92672">.</span>fields()<span style="color:#f92672">.</span>toList()]<span style="color:#f92672">.</span>__repr__()
+    m<span style="color:#f92672">.</span>update(field_names)
+    features <span style="color:#f92672">=</span> layer<span style="color:#f92672">.</span>getFeatures()
+    <span style="color:#66d9ef">for</span> feature <span style="color:#f92672">in</span> features:
+        m<span style="color:#f92672">.</span>update(feature<span style="color:#f92672">.</span>geometry()<span style="color:#f92672">.</span>exportToWkt())
+        m<span style="color:#f92672">.</span>update(feature<span style="color:#f92672">.</span>attributes()<span style="color:#f92672">.</span>__repr__())
+    <span style="color:#66d9ef">return</span> m<span style="color:#f92672">.</span>hexdigest()</code></pre></div>
+<p>The checksum of a layer can then be tested against a known value.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">layer <span style="color:#f92672">=</span> QgsVectorLayer(<span style="color:#e6db74">&#39;output.shp&#39;</span>, <span style="color:#e6db74">&#39;output&#39;</span>, <span style="color:#e6db74">&#39;ogr&#39;</span>)
+self<span style="color:#f92672">.</span>assertEqual(checksum(layer), <span style="color:#e6db74">&#39;61617f919678503c996d38fa31aa3d12&#39;</span>)</code></pre></div>
+<h2 id="working-with-signals">Working with signals</h2>
+<p>In addition to checking the output layers of an algorithm, it&rsquo;s also useful to check it emits the correct signals. For instance, that an error signal is emitted when an invalid input is given. To do this we define a simple helper class. The idea for this came from <a href="http://www.commandprompt.com/community/pyqt/x5255.htm" title="Testing signals and slots">GUI Programming with Python: QT Edition - Testing signals and slots</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#66d9ef">class</span> <span style="color:#a6e22e">SignalBox</span>(QtCore<span style="color:#f92672">.</span>QObject):
+    <span style="color:#66d9ef">def</span> __init__(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs):
+        QtCore<span style="color:#f92672">.</span>QObject<span style="color:#f92672">.</span>__init__(self, <span style="color:#f92672">*</span>args, <span style="color:#f92672">**</span>kwargs)
+        self<span style="color:#f92672">.</span>received <span style="color:#f92672">=</span> {}
+    <span style="color:#66d9ef">def</span> __getattr__(self, key):
+        <span style="color:#66d9ef">return</span> partial(self<span style="color:#f92672">.</span>__slot, key)
+    <span style="color:#66d9ef">def</span> <span style="color:#a6e22e">__slot</span>(self, attr<span style="color:#f92672">=</span>None, <span style="color:#f92672">*</span>args):
+        sig <span style="color:#f92672">=</span> tuple([self<span style="color:#f92672">.</span>sender()] <span style="color:#f92672">+</span> list(args))
+        <span style="color:#66d9ef">if</span> attr <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> self<span style="color:#f92672">.</span>received:
+            self<span style="color:#f92672">.</span>received[attr] <span style="color:#f92672">=</span> []
+        self<span style="color:#f92672">.</span>received[attr]<span style="color:#f92672">.</span>append(sig)</code></pre></div>
+<p>To use <code>SignalBox</code> we need to create an instance and connect some signals to it. The code below assumes that <code>alg</code> is a <code>QObject</code> with <code>error</code> and <code>finished</code> signals as suggested in <a href="/blog/2013/12/07/multithreading-in-qgis-python-plugins/" title="Multithreading in QGIS Python Plugins">Multithreading in QGIS Python Plugins</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">signalbox <span style="color:#f92672">=</span> SignalBox()
+
+alg<span style="color:#f92672">.</span>error<span style="color:#f92672">.</span>connect(signalbox<span style="color:#f92672">.</span>error)
+alg<span style="color:#f92672">.</span>finished<span style="color:#f92672">.</span>connect(signalbox<span style="color:#f92672">.</span>finished)
+
+<span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;error&#39;</span> <span style="color:#f92672">in</span> signalbox<span style="color:#f92672">.</span>received:
+    sender, err, message <span style="color:#f92672">=</span> signalbox<span style="color:#f92672">.</span>received[<span style="color:#e6db74">&#39;error&#39;</span>][<span style="color:#ae81ff">0</span>]
+    <span style="color:#66d9ef">raise</span>(<span style="color:#a6e22e">Exception</span>(message))
+
+<span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;finished&#39;</span> <span style="color:#f92672">not</span> <span style="color:#f92672">in</span> signalbox<span style="color:#f92672">.</span>received:
+    <span style="color:#66d9ef">raise</span>(<span style="color:#a6e22e">KeyError</span>(<span style="color:#e6db74">&#39;Algorithm never fired &#34;finished&#34; signal&#39;</span>))</code></pre></div>
+<h2 id="testing-the-graphical-user-interface-gui">Testing the Graphical User Interface (GUI)</h2>
+<p>Testing the GUI involves two steps: configuring the inputs (e.g. selecting layers from drop down menus, writing text in boxes, etc.) and running the algorithm itself.</p>
+<p>The example below demonstrates selecting a layer from a combo box by it&rsquo;s index, then testing if the correct layer has been selected and that the &lsquo;OK&rsquo; button has been enabled. A post by John McGehee provides several examples of <a href="http://www.voom.net/pyqt-qtest-example" title="Test PyQt GUIs with QTest and unittest">testing a GUI using PyQt4, QTest and unittest</a>.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">comboBox <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>ui<span style="color:#f92672">.</span>comboBox_InputLayer
+okButton <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>ui<span style="color:#f92672">.</span>buttonBox<span style="color:#f92672">.</span>buttonRole(self<span style="color:#f92672">.</span>ui<span style="color:#f92672">.</span>buttonBox<span style="color:#f92672">.</span>Ok)
+index <span style="color:#f92672">=</span> comboBox<span style="color:#f92672">.</span>findText(<span style="color:#e6db74">&#39;Woodland&#39;</span>)
+comboBox<span style="color:#f92672">.</span>setCurrentIndex(index)
+self<span style="color:#f92672">.</span>assertEqual(comboBox<span style="color:#f92672">.</span>currentText(), <span style="color:#e6db74">&#39;Woodland&#39;</span>, <span style="color:#e6db74">&#39;Unexpected layer selected&#39;</span>)
+self<span style="color:#f92672">.</span>assertTrue(okButton<span style="color:#f92672">.</span>isEnabled(), <span style="color:#e6db74">&#34;OK button isn&#39;t enabled.&#34;</span>)</code></pre></div>
+<p>Once the inputs have been configured we can use <code>QtTest.QTest.mouseClick</code> to press the &lsquo;OK&rsquo; button that will start the geoprocessing algorithm in the background. Once the button has been pressed, we use <code>QtTest.QTest.qWait</code> to wait a reasonable amount of time for a new layer to be added to the map canvas. If a layer is not added in this time a timeout error is raised.</p>
+<p>If the GUI doesn&rsquo;t provide easy access to any signals fired from the geoprocessing algorithm we can hook into the QGIS message log and listen for any critical errors with the plugin&rsquo;s tag. Obviously this requires the algorithm to log useful error messages with <code>QgsMessageLog.logMessage</code> if something goes wrong.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python"><span style="color:#75715e"># get a list of the existing layers</span>
+existing_layers <span style="color:#f92672">=</span> QgsMapLayerRegistry()<span style="color:#f92672">.</span>instance()<span style="color:#f92672">.</span>mapLayers()<span style="color:#f92672">.</span>values()
+
+<span style="color:#75715e"># listen to the QGIS message log</span>
+message_log <span style="color:#f92672">=</span> {}
+<span style="color:#66d9ef">def</span> <span style="color:#a6e22e">log</span>(message, tag, level):
+    message_log<span style="color:#f92672">.</span>setdefault(tag, [])
+    message_log[tag]<span style="color:#f92672">.</span>append((message, level,))
+QgsMessageLog<span style="color:#f92672">.</span>instance()<span style="color:#f92672">.</span>messageReceived<span style="color:#f92672">.</span>connect(log)
+
+<span style="color:#75715e"># locate the ok button, then click it</span>
+okButton <span style="color:#f92672">=</span> self<span style="color:#f92672">.</span>ui<span style="color:#f92672">.</span>buttonBox<span style="color:#f92672">.</span>buttonRole(self<span style="color:#f92672">.</span>ui<span style="color:#f92672">.</span>buttonBox<span style="color:#f92672">.</span>Ok)
+QtTest<span style="color:#f92672">.</span>QTest<span style="color:#f92672">.</span>mouseClick(okButton, QtCore<span style="color:#f92672">.</span>Qt<span style="color:#f92672">.</span>LeftButton)
+
+<span style="color:#75715e"># wait for a new layer to be added</span>
+timeout <span style="color:#f92672">=</span> <span style="color:#ae81ff">20</span> <span style="color:#75715e"># seconds</span>
+count <span style="color:#f92672">=</span> <span style="color:#ae81ff">0</span>
+<span style="color:#66d9ef">while</span> count <span style="color:#f92672">&lt;</span> timeout:
+    QtTest<span style="color:#f92672">.</span>QTest<span style="color:#f92672">.</span>qWait(<span style="color:#ae81ff">1000</span>) <span style="color:#75715e"># wait 1000ms</span>
+    <span style="color:#75715e"># parse message log for critical errors</span>
+    <span style="color:#66d9ef">if</span> <span style="color:#e6db74">&#39;MyPluginTag&#39;</span> <span style="color:#f92672">in</span> message_log:
+        <span style="color:#66d9ef">while</span> message_log[<span style="color:#e6db74">&#39;MyPluginTag&#39;</span>]:
+            message, level <span style="color:#f92672">=</span> message_log[<span style="color:#e6db74">&#39;MyPluginTag&#39;</span>]<span style="color:#f92672">.</span>pop()
+            self<span style="color:#f92672">.</span>assertNotEqual(level, QgsMessageLog<span style="color:#f92672">.</span>CRITICAL, \
+                <span style="color:#e6db74">&#39;Critical error in message log:</span><span style="color:#ae81ff">\n</span><span style="color:#e6db74">{}&#39;</span><span style="color:#f92672">.</span>format(message))
+    <span style="color:#75715e"># check if any layers have been added</span>
+    <span style="color:#66d9ef">if</span> len(QgsMapLayerRegistry()<span style="color:#f92672">.</span>instance()<span style="color:#f92672">.</span>mapLayers()) <span style="color:#f92672">&gt;</span> len(layers):
+        <span style="color:#66d9ef">break</span>
+    count <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span>
+
+<span style="color:#75715e"># test if process timed out</span>
+self<span style="color:#f92672">.</span>assertTrue(count <span style="color:#f92672">&lt;</span> timeout, <span style="color:#e6db74">&#39;Timed out waiting for layer to be added.&#39;</span>)
+
+<span style="color:#75715e"># everything went OK, get the new layer(s)</span>
+current_layers <span style="color:#f92672">=</span> QgsMapLayerRegistry()<span style="color:#f92672">.</span>instance()<span style="color:#f92672">.</span>mapLayers()<span style="color:#f92672">.</span>values()
+new_layers <span style="color:#f92672">=</span> list(set(current_layers)<span style="color:#f92672">.</span>difference(set(existing_layers)))</code></pre></div>
+<h2 id="taking-screenshots">Taking screenshots</h2>
+<p>Although screenshots aren&rsquo;t useful for testing to see if something is displaying correctly, due to differences in appearance between systems, they can be useful as a debugging tool when running &lsquo;headless&rsquo; tests. When a test is failing a screenshot can be used to check that all of the inputs to the UI have been entered in the expected way.</p>
+<p>The code below captures a screenshot of a <code>QDialog</code>, then saves it as a PNG file in the current directory. The <code>QDialog</code> doesn&rsquo;t need to be visible for this to work.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">screenshot <span style="color:#f92672">=</span> QtGui<span style="color:#f92672">.</span>QPixmap<span style="color:#f92672">.</span>grabWidget(self<span style="color:#f92672">.</span>plugin<span style="color:#f92672">.</span>dlg)
+f <span style="color:#f92672">=</span> QtCore<span style="color:#f92672">.</span>QFile(<span style="color:#e6db74">&#39;screenshot.png&#39;</span>)
+screenshot<span style="color:#f92672">.</span>save(f, <span style="color:#e6db74">&#39;PNG&#39;</span>)</code></pre></div>
+<p>The PyQGIS Cookbook describes <a href="http://www.qgis.org/en/docs/pyqgis_developer_cookbook/composer.html" title="Map Rendering and Printing">how to export the map canvas as an image</a>.</p>
+<h2 id="nicer-testing-with-nose">Nicer testing with nose</h2>
+<p><a href="http://nose.readthedocs.org/en/latest/" title="nose extends unittest to make testing easier">nose</a> extents the <code>unittest</code> module to make testing easier. It can collect all the tests in a directory tree and run them one after another.</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-shell" data-lang="shell">$ nosetest -v ../tests
+Testing concentric ring buffer algorithm ... ok
+Testing GUI defaults ... ok
+Testing output is added to canvas at end of processing ... ok</code></pre></div>
+<p>I find it useful to keep all of the tests together in a single folder. Don&rsquo;t forget to add the folder that your plugin is in to <code>PYTHONPATH</code>.</p>
+<pre>
+.
+├── myplugin
+│   ├── __init__.py
+│   ├── Makefile
+│   ├── myplugin.py
+│   └── etc.
+└── tests
+    ├── point_tests.py
+    ├── polygon_tests.py
+    └── gui_tests.py
+</pre>
+<p>If you&rsquo;re using a Makefile to build and deploy your plugin it&rsquo;s trivial to add a <code>test</code> target, so that you only need to type <code>make test</code> to run every test in your project. The example below assumes your tests are saved in a &lsquo;tests&rsquo; directory in the directory above the Makefile.</p>
+<pre><code><div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-makefile" data-lang="makefile">    <span style="color:#75715e"># test everything</span>
+    make test:
+        nosetests -v ../tests
+
+    <span style="color:#75715e"># test GUI only</span>
+    make testgui:
+        nosetests -v ../tests/*gui*.py
+    
+</code></pre></div>
+</code></pre>
+
+  </section>
+  <footer>
+    
+
+    
+    <nav class="p-pagination c-pagination">
+      <div class="c-pagination__ctrl">
+        <div class="c-pagination__newer">
+          
+          <a href="https://snorfalorpagus.net/blog/2014/02/27/embedding-pngs-in-svg-markers-in-qgis/">Newer</a>
+          
+        </div>
+        <div class="c-pagination__older">
+          
+          <a href="https://snorfalorpagus.net/blog/2013/12/07/multithreading-in-qgis-python-plugins/">Older</a>
+          
+        </div>
+      </div>
+    </nav>
+    
+
+
+    
+
+  </footer>
+</article>
+  </main>
+  
+
+  <footer class="l-footer">
+    
+
+
+    <p class="p-copyright">
+      
+        
+        &nbsp;&bull;&nbsp;
+        2020
+
+        
+          &nbsp;&bull;&nbsp;
+          <a href="https://snorfalorpagus.net/">snorfalorpagus dot net</a>
+        
+      
+    </p>
+  </footer>
+
+</body>
+</html>
+
